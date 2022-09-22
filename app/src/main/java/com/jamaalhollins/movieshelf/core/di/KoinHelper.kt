@@ -10,7 +10,7 @@ object KoinHelper {
         startKoin {
             androidLogger()
             androidContext(application)
-            modules(listOf(networkModule))
+            modules(listOf(networkModule, viewModelModule))
         }
     }
 }
