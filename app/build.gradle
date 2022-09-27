@@ -65,12 +65,12 @@ dependencies {
 
     //Networking
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$moshi_converter_version"
     implementation "com.squareup.okhttp3:okhttp:$okHttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttp_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$moshi_converter_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    implementation "com.squareup.moshi:moshi-adapters:$moshi_adapter_version"
 
     //Logging
     implementation "com.jakewharton.timber:timber:$timber_version"

@@ -5,6 +5,10 @@ object ApiConstants {
     private const val JSON_HEADER = "Content-Type: application/json"
 }
 
-object ApiParameters{
+object ApiParameters {
     const val API_KEY = "api_key"
+    const val PAGE = "page"
+    const val TIME_WINDOW = "time_window"
+    const val MEDIA_TYPE = "media_type"
+
 }
