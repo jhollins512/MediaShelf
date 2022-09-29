@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             homeViewModel = this@HomeFragment.homeViewModel
         }
+
         return binding.root
     }
 

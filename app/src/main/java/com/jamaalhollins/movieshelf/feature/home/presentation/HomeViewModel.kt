@@ -1,34 +1,59 @@
 package com.jamaalhollins.movieshelf.feature.home.presentation
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class HomeViewModel constructor(
-    private val getDailyTrendingMoviesUseCase: GetDailyTrendingMoviesUseCase,
-    private val getDailyTrendingTVShowsUseCaseUseCase: GetDailyTrendingTVShowsUseCaseUseCase,
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
-    private val getPopularTVUseCase: GetPopularTVUseCase,
-    private val getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase,
-    private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
+    private val getDailyTrendingMovies: GetDailyTrendingMoviesUseCase,
+    private val getDailyTrendingTVShows: GetDailyTrendingTVShowsUseCaseUseCase,
+    private val getPopularMovies: GetPopularMoviesUseCase,
+    private val getPopularTV: GetPopularTVUseCase,
+    private val getNowPlayingMovies: GetNowPlayingMoviesUseCase,
+    private val getUpcomingMovies: GetUpcomingMoviesUseCase
 ) :
     ViewModel() {
 
-    val trendingMovies: LiveData<List<Media>> = liveData { emit(getDailyTrendingMoviesUseCase()) }
+    private val _uiState = MutableLiveData(HomeUiState())
+    val uiState: LiveData<HomeUiState> = _uiState
 
-    val trendingTVShows: LiveData<List<Media>> =
-        liveData { emit(getDailyTrendingTVShowsUseCaseUseCase()) }
+    init {
+        loadMedia()
+    }
 
-    val popularMovies: LiveData<List<Media>> = liveData { emit(getPopularMoviesUseCase()) }
+    private fun loadMedia() {
+        viewModelScope.launch {
+            val trendingMoviesJob = async { getDailyTrendingMovies() }
+            val trendingTVShowsJob = async { getDailyTrendingTVShows() }
+            val popularMoviesJob = async { getPopularMovies() }
+            val popularTVJob = async { getPopularTV() }
+            val nowPlayingMoviesJob = async { getNowPlayingMovies() }
+            val upcomingMoviesJob = async { getUpcomingMovies() }
 
-    val popularTV: LiveData<List<Media>> =
-        liveData { emit(getPopularTVUseCase()) }
-
-    val nowPlayingMovies: LiveData<List<Media>> =
-        liveData { emit(getNowPlayingMoviesUseCase()) }
-
-    val upcomingMovies: LiveData<List<Media>> =
-        liveData { emit(getUpcomingMoviesUseCase()) }
+            _uiState.value = HomeUiState(
+                false,
+                trendingMoviesJob.await(),
+                trendingTVShowsJob.await(),
+                popularMoviesJob.await(),
+                popularTVJob.await(),
+                nowPlayingMoviesJob.await(),
+                upcomingMoviesJob.await()
+            )
+        }
+    }
 }
+
+class HomeUiState(
+    val loading: Boolean = true,
+    val trendingMovies: List<Media> = emptyList(),
+    val trendingTVShows: List<Media> = emptyList(),
+    val popularMovies: List<Media> = emptyList(),
+    val popularTVShows: List<Media> = emptyList(),
+    val nowPlayingMovies: List<Media> = emptyList(),
+    val upcomingMovies: List<Media> = emptyList()
+)
