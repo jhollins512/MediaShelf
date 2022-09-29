@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingTop="@dimen/spacing_normal"
+        android:paddingBottom="@dimen/spacing_normal"
         tools:context=".feature.home.presentation.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jamaalhollins.movieshelf.core.presentation.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.databinding.ListItemMediaBinding
 
 class MediaAdapter : ListAdapter<Media, MediaAdapter.MediaViewHolder>(MediaComparator) {

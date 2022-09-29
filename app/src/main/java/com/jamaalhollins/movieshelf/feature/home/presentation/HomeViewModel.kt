@@ -3,7 +3,7 @@ package com.jamaalhollins.movieshelf.feature.home.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.jamaalhollins.movieshelf.core.presentation.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
 
 class HomeViewModel constructor(

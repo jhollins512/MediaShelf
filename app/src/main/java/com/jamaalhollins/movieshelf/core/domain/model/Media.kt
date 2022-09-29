@@ -1,4 +1,4 @@
-package com.jamaalhollins.movieshelf.core.presentation.model
+package com.jamaalhollins.movieshelf.core.domain.model
 
 import com.jamaalhollins.movieshelf.core.data.api.ApiConstants
 

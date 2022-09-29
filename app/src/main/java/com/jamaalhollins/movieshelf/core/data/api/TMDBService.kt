@@ -9,6 +9,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TMDBService {
+
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrending(
         @Path(ApiParameters.MEDIA_TYPE) mediaType: String,

@@ -9,7 +9,7 @@
 
         <variable
             name="media"
-            type="com.jamaalhollins.movieshelf.core.presentation.model.Media" />
+            type="com.jamaalhollins.movieshelf.core.domain.model.Media" />
     </data>
 
     <androidx.cardview.widget.CardView

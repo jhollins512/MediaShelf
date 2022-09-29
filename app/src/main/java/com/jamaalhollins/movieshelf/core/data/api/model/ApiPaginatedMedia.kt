@@ -1,11 +1,19 @@
 package com.jamaalhollins.movieshelf.core.data.api.model
 
+import com.jamaalhollins.movieshelf.core.domain.model.PaginatedMedia
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ApiPaginatedMedia<out T : ApiMedia>(
     val page: Int,
     val results: List<T>,
-    val total_pages: Int,
-    val total_results: Int
-)
+    @Json(name = "total_pages") val totalPages: Int,
+    @Json(name = "total_results") val totalResults: Int
+) {
+    fun mapToDomain(): PaginatedMedia {
+        val mappedResults = results.map { it.mapToMedia() }
+
+        return PaginatedMedia(page, mappedResults, totalPages, totalResults)
+    }
+}

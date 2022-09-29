@@ -35,6 +35,7 @@
         android:clipToPadding="false"
         android:orientation="horizontal"
         android:paddingStart="@dimen/spacing_normal"
+        android:paddingBottom="@dimen/spacing_tiny"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/moreButton"
         tools:ignore="RtlSymmetry"

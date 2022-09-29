@@ -1,6 +1,6 @@
 package com.jamaalhollins.movieshelf.core.data.api.model
 
-import com.jamaalhollins.movieshelf.core.presentation.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

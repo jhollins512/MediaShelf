@@ -1,10 +1,10 @@
-package com.jamaalhollins.movieshelf.core
+package com.jamaalhollins.movieshelf.core.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.jamaalhollins.movieshelf.core.data.api.TMDBService
-import com.jamaalhollins.movieshelf.core.presentation.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject

@@ -9,7 +9,7 @@ import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
 import com.jamaalhollins.movieshelf.core.presentation.adapter.MediaAdapter
-import com.jamaalhollins.movieshelf.core.presentation.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.databinding.ViewHomeMediaRowBinding
 
 class HomeMediaRowView @JvmOverloads constructor(
