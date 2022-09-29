@@ -1,5 +1,6 @@
 package com.jamaalhollins.movieshelf.core.data.api.model
 
+import com.jamaalhollins.movieshelf.core.presentation.model.Media
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -9,4 +10,9 @@ data class ApiTVShow(
     @Json(name = "original_name") val originalName: String,
     @Json(name = "first_air_date") val firstAirDate: String,
     @Json(name = "origin_country") val originCountry: List<String>
-) : ApiMedia()
+) : ApiMedia() {
+
+    override fun mapToMedia(): Media {
+        return Media(id, name, mediaType.orEmpty(), posterPath.orEmpty())
+    }
+}

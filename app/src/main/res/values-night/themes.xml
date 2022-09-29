@@ -5,7 +5,6 @@
         <item name="colorPrimary">@color/primaryLightColor</item>
         <item name="colorPrimaryVariant">@color/primaryColor</item>
         <item name="colorOnPrimary">@color/primaryTextColor</item>
-        <item name="android:textColorPrimary">@android:color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondaryLightColor</item>
         <item name="colorSecondaryVariant">@color/secondaryColor</item>

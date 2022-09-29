@@ -1,5 +1,6 @@
 package com.jamaalhollins.movieshelf.core.data.api.model
 
+import com.jamaalhollins.movieshelf.core.presentation.model.Media
 import com.squareup.moshi.Json
 
 sealed class ApiMedia {
@@ -31,4 +32,6 @@ sealed class ApiMedia {
 
     @Json(name = "vote_count")
     var voteCount: Int = 0
+
+    abstract fun mapToMedia() : Media
 }

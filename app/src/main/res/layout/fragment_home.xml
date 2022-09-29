@@ -1,13 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".feature.home.presentation.HomeFragment">
+<layout>
 
-    <TextView
+    <data>
+
+        <variable
+            name="homeViewModel"
+            type="com.jamaalhollins.movieshelf.feature.home.presentation.HomeViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/spacing_normal"
+        tools:context=".feature.home.presentation.HomeFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                android:id="@+id/trendingMoviesRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:homeMediaRow_title="@string/trending_movies"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mediaList="@{homeViewModel.trendingMovies}" />
+
+            <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                android:id="@+id/popularMoviesRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:homeMediaRow_title="@string/popular_movies"
+                app:layout_constraintTop_toBottomOf="@id/trendingMoviesRow"
+                app:mediaList="@{homeViewModel.popularMovies}" />
+
+            <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                android:id="@+id/nowPlayingMoviesRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:homeMediaRow_title="@string/now_playing_movies"
+                app:layout_constraintTop_toBottomOf="@id/popularMoviesRow"
+                app:mediaList="@{homeViewModel.nowPlayingMovies}" />
+
+            <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                android:id="@+id/upcomingMoviesRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:homeMediaRow_title="@string/upcoming_movies"
+                app:layout_constraintTop_toBottomOf="@id/nowPlayingMoviesRow"
+                app:mediaList="@{homeViewModel.upcomingMovies}" />
+
+            <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                android:id="@+id/trendingTVRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:homeMediaRow_title="@string/trending_tv"
+                app:layout_constraintTop_toBottomOf="@id/upcomingMoviesRow"
+                app:mediaList="@{homeViewModel.trendingTVShows}" />
+
+            <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                android:id="@+id/popularTVRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:homeMediaRow_title="@string/popular_tv"
+                app:layout_constraintTop_toBottomOf="@id/trendingTVRow"
+                app:mediaList="@{homeViewModel.popularTV}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
