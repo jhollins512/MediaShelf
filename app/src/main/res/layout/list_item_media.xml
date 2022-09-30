@@ -12,9 +12,11 @@
             type="com.jamaalhollins.movieshelf.core.domain.model.Media" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,5 +51,5 @@
                 tools:text="Movie Title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
