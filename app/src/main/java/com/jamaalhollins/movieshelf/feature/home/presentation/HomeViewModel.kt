@@ -8,6 +8,7 @@ import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class HomeViewModel constructor(
     private val getDailyTrendingMovies: GetDailyTrendingMoviesUseCase,
@@ -45,6 +46,10 @@ class HomeViewModel constructor(
                 upcomingMoviesJob.await()
             )
         }
+    }
+
+    fun navigateToMediaDetails(media: Media) {
+        Timber.d(media.title)
     }
 }
 

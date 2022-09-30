@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.databinding.ListItemMediaBinding
 
-class MediaAdapter : ListAdapter<Media, MediaAdapter.MediaViewHolder>(MediaComparator) {
+class MediaAdapter(private val listener: MediaAdapter.Listener) :
+    ListAdapter<Media, MediaAdapter.MediaViewHolder>(MediaComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaViewHolder {
         val binding =
@@ -25,8 +26,13 @@ class MediaAdapter : ListAdapter<Media, MediaAdapter.MediaViewHolder>(MediaCompa
 
         fun bind(media: Media) {
             binding.media = media
+            binding.listener = this@MediaAdapter.listener
             binding.executePendingBindings()
         }
+    }
+
+    fun interface Listener {
+        fun onMediaItemClicked(media: Media)
     }
 
     private object MediaComparator : DiffUtil.ItemCallback<Media>() {

@@ -1,9 +1,6 @@
 package com.jamaalhollins.movieshelf.core.data.api
 
-import com.jamaalhollins.movieshelf.core.data.api.model.ApiMedia
-import com.jamaalhollins.movieshelf.core.data.api.model.ApiMovie
-import com.jamaalhollins.movieshelf.core.data.api.model.ApiPaginatedMedia
-import com.jamaalhollins.movieshelf.core.data.api.model.ApiTVShow
+import com.jamaalhollins.movieshelf.core.data.api.model.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -36,4 +33,10 @@ interface TMDBService {
     suspend fun getNowPlayingMovies(
         @Query(ApiParameters.PAGE) page: Int
     ): ApiPaginatedMedia<ApiMovie>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiMovieDetails
+
+    @GET("tv/{tv_id}")
+    suspend fun getTVShowDetails(@Path(ApiParameters.TV_ID) movieId: Int): ApiTVShowDetails
 }
