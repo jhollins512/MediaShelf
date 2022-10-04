@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.OnApplyWindowInsetsListener
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -50,7 +47,6 @@ class MovieDetailsFragment : Fragment() {
     private fun setupToolbar() {
         setupBackButtonNavigation()
         checkDarkModeToolbar()
-        fixAppBarLayoutBottomInset()
     }
 
     private fun setupBackButtonNavigation() {
@@ -64,26 +60,12 @@ class MovieDetailsFragment : Fragment() {
 
         when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_YES -> {
-                binding.collapsingToolbarLayout.setContentScrimColor(
+                binding.movieDetailsCollapsingToolbarLayout.setContentScrimColor(
                     ElevationOverlayProvider(context)
                         .compositeOverlayWithThemeSurfaceColorIfNeeded(12f)
                 )
             }
         }
-    }
-
-    private fun fixAppBarLayoutBottomInset() {
-        val listener = OnApplyWindowInsetsListener { v, insets ->
-            ViewCompat.setOnApplyWindowInsetsListener(binding.movieDetailsAppBarLayout, null)
-
-            insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            (binding.collapsingToolbarLayout.layoutParams as ViewGroup.MarginLayoutParams).topMargin =
-                insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
-
-            WindowInsetsCompat.CONSUMED
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.movieDetailsAppBarLayout, listener)
     }
 
     private fun subscribeUi() {

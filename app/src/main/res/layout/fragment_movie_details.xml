@@ -15,8 +15,8 @@
         android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
+        <com.jamaalhollins.movieshelf.feature.mediaDetails.view.CollapsingToolbarWithBottomInsetFixedLayout
+            android:id="@+id/movieDetailsCollapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -61,7 +61,7 @@
                 app:navigationIcon="@drawable/ic_baseline_arrow_white_24"
                 app:navigationIconTint="@android:color/white" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.jamaalhollins.movieshelf.feature.mediaDetails.view.CollapsingToolbarWithBottomInsetFixedLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
