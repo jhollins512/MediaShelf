@@ -1,14 +1,15 @@
 package com.jamaalhollins.movieshelf.feature.home.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class HomeViewModel constructor(
     private val getDailyTrendingMovies: GetDailyTrendingMoviesUseCase,
@@ -20,8 +21,11 @@ class HomeViewModel constructor(
 ) :
     ViewModel() {
 
-    private val _uiState = MutableLiveData(HomeUiState())
-    val uiState: LiveData<HomeUiState> = _uiState
+    private val _uiState = MutableStateFlow(HomeUiState())
+    val uiState: StateFlow<HomeUiState> = _uiState
+
+    private val _uiEffect = MutableSharedFlow<HomeUiEffect>()
+    val uiEffect: SharedFlow<HomeUiEffect> = _uiEffect
 
     init {
         loadMedia()
@@ -49,7 +53,9 @@ class HomeViewModel constructor(
     }
 
     fun navigateToMediaDetails(media: Media) {
-        Timber.d(media.title)
+        viewModelScope.launch {
+            _uiEffect.emit(HomeUiEffect.NavigateToMovieDetails(media))
+        }
     }
 }
 
@@ -62,3 +68,7 @@ class HomeUiState(
     val nowPlayingMovies: List<Media> = emptyList(),
     val upcomingMovies: List<Media> = emptyList()
 )
+
+sealed class HomeUiEffect {
+    class NavigateToMovieDetails(val media: Media) : HomeUiEffect()
+}

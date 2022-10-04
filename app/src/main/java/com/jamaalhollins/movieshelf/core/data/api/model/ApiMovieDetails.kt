@@ -11,7 +11,7 @@ data class ApiMovieDetails(
     @Json(name = "backdrop_path")
     val backdropPath: String,
     @Json(name = "belongs_to_collection")
-    val belongsToCollection: Any,
+    val belongsToCollection: Any?,
     @Json(name = "budget")
     val budget: Int,
     @Json(name = "genres")

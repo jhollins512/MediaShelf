@@ -2,7 +2,8 @@ package com.jamaalhollins.movieshelf.core.data.api
 
 object ApiConstants {
     const val BASE_ENDPOINT = "https://api.themoviedb.org/3/"
-    const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/"
+    const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500/"
+    const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780/"
 }
 
 object ApiParameters {

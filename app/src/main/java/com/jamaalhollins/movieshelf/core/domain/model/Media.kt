@@ -9,6 +9,6 @@ data class Media(
     private val posterPath: String
 ) {
     fun getPosterPath(): String {
-        return ApiConstants.POSTER_BASE_URL + posterPath
+        return ApiConstants.IMAGE_BASE_URL_W500 + posterPath
     }
 }

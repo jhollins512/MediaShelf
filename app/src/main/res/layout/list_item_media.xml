@@ -32,7 +32,6 @@
                 android:id="@+id/posterImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:scaleType="center"
                 app:error="@{@drawable/ic_baseline_media_48}"
                 app:imageUrl="@{media.posterPath}"
                 app:layout_constraintBottom_toTopOf="@id/title"

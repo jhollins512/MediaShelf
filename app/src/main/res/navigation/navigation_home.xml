@@ -2,18 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_main"
+    android:id="@+id/navigation_home"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.jamaalhollins.movieshelf.feature.home.presentation.HomeFragment"
         android:label="Home Fragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -21,11 +17,12 @@
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details">
 
-        <deepLink app:uri="movieshelf://movieDetails/{movie_id}" />
+        <deepLink app:uri="movieshelf://movieDetails/{movieId}" />
 
         <argument
-            android:name="movie_id"
+            android:name="movieId"
             app:argType="integer" />
+
     </fragment>
 
 </navigation>

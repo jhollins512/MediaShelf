@@ -13,6 +13,6 @@ data class ApiTVShow(
 ) : ApiMedia() {
 
     override fun mapToMedia(): Media {
-        return Media(id, name, mediaType.orEmpty(), posterPath.orEmpty())
+        return Media(id, name, "tv", posterPath.orEmpty())
     }
 }
