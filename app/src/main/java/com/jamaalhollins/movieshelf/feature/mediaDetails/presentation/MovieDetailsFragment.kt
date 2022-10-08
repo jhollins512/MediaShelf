@@ -6,7 +6,9 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -61,8 +63,10 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun setupPosterPosition() {
-        val posterTranslationY = .10f * getScreenWidth(requireActivity())
-        binding.posterImage.translationY = -posterTranslationY
+        val marginY = (.10 * getScreenWidth(requireActivity())).toInt()
+        binding.posterImage.updateLayoutParams<MarginLayoutParams> {
+            this.topMargin = -marginY
+        }
     }
 
     private fun setupScrollView() {
