@@ -8,14 +8,14 @@ import com.jamaalhollins.movieshelf.core.domain.model.MovieDetails
 import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieDetailsUseCase
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel(
+class MovieDetailsViewModel(
     private val getMovieDetails: GetMovieDetailsUseCase,
 ) : ViewModel() {
 
     private val _movieDetails = MutableLiveData<MovieDetails>()
     val movieDetails: LiveData<MovieDetails> = _movieDetails
 
-    fun getMovieDetails(movieId: Int) {
+    fun loadMovieDetails(movieId: Int) {
         viewModelScope.launch {
             _movieDetails.value = getMovieDetails.invoke(movieId)
         }
