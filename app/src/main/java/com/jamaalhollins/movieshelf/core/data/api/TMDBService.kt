@@ -39,4 +39,10 @@ interface TMDBService {
 
     @GET("tv/{tv_id}")
     suspend fun getTVShowDetails(@Path(ApiParameters.TV_ID) movieId: Int): ApiTVShowDetails
+
+    @GET("movie/{movie_id}/recommendations")
+    suspend fun getMovieRecommendations(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiPaginatedMedia<ApiMovie>
+
+    @GET("movie/{movie_id}/watch/providers")
+    suspend fun getMovieWatchProviders(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiWatchProvidersResults
 }

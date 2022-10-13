@@ -8,24 +8,14 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginEnd="@dimen/spacing_normal"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        app:layout_constraintBottom_toBottomOf="@id/moreButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
-
-    <Button
-        android:id="@+id/moreButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:text="@string/btn_more"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mediaList"
@@ -37,7 +27,7 @@
         android:paddingStart="@dimen/spacing_normal"
         android:paddingBottom="@dimen/spacing_tiny"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/moreButton"
+        app:layout_constraintTop_toBottomOf="@id/title"
         tools:ignore="RtlSymmetry"
         tools:itemCount="3"
         tools:listitem="@layout/list_item_media" />

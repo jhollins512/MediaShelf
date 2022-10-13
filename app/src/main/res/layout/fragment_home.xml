@@ -49,63 +49,63 @@
                 android:layout_height="match_parent"
                 android:visibility="@{homeViewModel.uiState.loading ? View.GONE : View.VISIBLE}">
 
-                <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
                     android:id="@+id/trendingMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:homeMediaRow_title="@string/trending_movies"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mediaList="@{homeViewModel.uiState.trendingMovies}"
+                    app:mediaRow_title="@string/trending_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
                     android:id="@+id/popularMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    app:homeMediaRow_title="@string/popular_movies"
                     app:layout_constraintTop_toBottomOf="@id/trendingMoviesRow"
                     app:mediaList="@{homeViewModel.uiState.popularMovies}"
+                    app:mediaRow_title="@string/popular_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
                     android:id="@+id/nowPlayingMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    app:homeMediaRow_title="@string/now_playing_movies"
                     app:layout_constraintTop_toBottomOf="@id/popularMoviesRow"
                     app:mediaList="@{homeViewModel.uiState.nowPlayingMovies}"
+                    app:mediaRow_title="@string/now_playing_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
                     android:id="@+id/upcomingMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    app:homeMediaRow_title="@string/upcoming_movies"
                     app:layout_constraintTop_toBottomOf="@id/nowPlayingMoviesRow"
                     app:mediaList="@{homeViewModel.uiState.upcomingMovies}"
+                    app:mediaRow_title="@string/upcoming_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
                     android:id="@+id/trendingTVRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    app:homeMediaRow_title="@string/trending_tv"
                     app:layout_constraintTop_toBottomOf="@id/upcomingMoviesRow"
                     app:mediaList="@{homeViewModel.uiState.trendingTVShows}"
+                    app:mediaRow_title="@string/trending_tv"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.feature.home.presentation.view.HomeMediaRowView
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
                     android:id="@+id/popularTVRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    app:homeMediaRow_title="@string/popular_tv"
                     app:layout_constraintTop_toBottomOf="@id/trendingTVRow"
                     app:mediaList="@{homeViewModel.uiState.popularTVShows}"
+                    app:mediaRow_title="@string/popular_tv"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

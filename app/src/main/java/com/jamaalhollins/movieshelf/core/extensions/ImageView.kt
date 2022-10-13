@@ -11,7 +11,5 @@ fun ImageView.setImage(imageUrl: String, errorDrawable: Drawable?) {
     Glide.with(this.context)
         .load(imageUrl.ifEmpty { null })
         .error(errorDrawable)
-        .centerCrop()
-        .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
 }

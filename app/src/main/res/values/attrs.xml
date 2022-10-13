@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="HomeMediaRowView">
-        <attr name="homeMediaRow_title" format="string" />
+    <declare-styleable name="MediaRowView">
+        <attr name="mediaRow_title" format="string" />
     </declare-styleable>
 </resources>

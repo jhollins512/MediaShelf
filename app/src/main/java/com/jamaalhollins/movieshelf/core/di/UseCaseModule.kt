@@ -1,8 +1,7 @@
 package com.jamaalhollins.movieshelf.core.di
 
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieDetailsUseCase
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetTVShowDetailsUseCase
+import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.*
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -14,4 +13,7 @@ val useCaseModule = module {
     factory { GetUpcomingMoviesUseCase(get()) }
     factory { GetMovieDetailsUseCase(get()) }
     factory { GetTVShowDetailsUseCase(get()) }
+    factory { GetMovieRecommendationsUseCase(get()) }
+    factory { GetMovieWatchProvidersForLocaleUseCase(get()) }
+    factory { FormatWatchProvidersWithType() }
 }

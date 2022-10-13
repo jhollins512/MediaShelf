@@ -9,4 +9,5 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="dark_gray">#121212</color>
+    <color name="link_blue">#3464c5</color>
 </resources>

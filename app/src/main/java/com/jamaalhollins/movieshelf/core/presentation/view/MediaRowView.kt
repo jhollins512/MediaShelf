@@ -1,4 +1,4 @@
-package com.jamaalhollins.movieshelf.feature.home.presentation.view
+package com.jamaalhollins.movieshelf.core.presentation.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -12,7 +12,7 @@ import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
 import com.jamaalhollins.movieshelf.core.presentation.adapter.MediaAdapter
 import com.jamaalhollins.movieshelf.databinding.ViewHomeMediaRowBinding
 
-class HomeMediaRowView @JvmOverloads constructor(
+class MediaRowView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -20,7 +20,6 @@ class HomeMediaRowView @JvmOverloads constructor(
 
     private val binding = ViewHomeMediaRowBinding.inflate(LayoutInflater.from(context), this, true)
     private var onMediaItemClickedListener: OnMediaItemClickedListener? = null
-//    private var onMoreItemClickedListener: OnMoreClickedListener? = null
 
     init {
         initView(attrs)
@@ -28,9 +27,9 @@ class HomeMediaRowView @JvmOverloads constructor(
     }
 
     private fun initView(attrs: AttributeSet?) {
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.HomeMediaRowView)
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.MediaRowView)
 
-        setTitle(attributes.getString(R.styleable.HomeMediaRowView_homeMediaRow_title) ?: "")
+        setTitle(attributes.getString(R.styleable.MediaRowView_mediaRow_title) ?: "")
 
         attributes.recycle()
     }
@@ -58,14 +57,10 @@ class HomeMediaRowView @JvmOverloads constructor(
     fun interface OnMediaItemClickedListener {
         fun onMediaItemClicked(media: Media)
     }
-
-//    fun interface OnMoreClickedListener {
-//        fun onMoreClicked()
-//    }
 }
 
 @BindingAdapter("app:mediaList")
-fun setMediaList(view: HomeMediaRowView, media: List<Media>?) {
+fun setMediaList(view: MediaRowView, media: List<Media>?) {
     media?.let {
         view.setRowMediaList(media)
     }
@@ -73,8 +68,8 @@ fun setMediaList(view: HomeMediaRowView, media: List<Media>?) {
 
 @BindingAdapter("app:setOnMediaItemClicked")
 fun setOnMediaItemClicked(
-    view: HomeMediaRowView,
-    listener: HomeMediaRowView.OnMediaItemClickedListener
+    view: MediaRowView,
+    listener: MediaRowView.OnMediaItemClickedListener
 ) {
     view.setListener(listener)
 }

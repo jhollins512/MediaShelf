@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="movieDetailsViewModel"
@@ -9,7 +11,6 @@
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +23,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/spacing_normal">
 
                 <ImageView
                     android:id="@+id/backdropImage"
@@ -36,7 +38,7 @@
                     android:id="@+id/posterImage"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginStart="@dimen/spacing_large"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="2:3"
                     app:layout_constraintStart_toStartOf="parent"
@@ -49,8 +51,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
                     android:text="@{movieDetailsViewModel.movieDetails.title}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/posterImage"
                     app:layout_constraintTop_toBottomOf="@id/backdropImage"
@@ -66,15 +70,82 @@
                     app:layout_constraintTop_toBottomOf="@+id/movieTitle"
                     tools:text="2021-12-17" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/watchNowButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:onClick="@{() -> movieDetailsViewModel.watchNow(movieDetailsViewModel.movieDetails.homepage)}"
+                    android:text="@string/homepage"
+                    android:visibility="@{movieDetailsViewModel.movieDetails.homepage.empty ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@id/posterImage" />
+
+                <TextView
+                    android:id="@+id/aboutMovieText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:text="@string/about_movie"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintTop_toBottomOf="@id/watchNowButton" />
+
                 <TextView
                     android:id="@+id/movieOverview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingTop="@dimen/spacing_xsmall"
                     android:text="@{movieDetailsViewModel.movieDetails.overview}"
-                    app:layout_constraintTop_toBottomOf="@id/posterImage"
+                    app:layout_constraintTop_toBottomOf="@id/aboutMovieText"
                     tools:text="Movie Overview" />
+
+                <TextView
+                    android:id="@+id/aboutMovieMoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:text="@string/btn_more"
+                    android:textColor="@color/link_blue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
+
+                <TextView
+                    android:id="@+id/whereToWatchText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:text="@string/where_to_watch"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintTop_toBottomOf="@id/aboutMovieMoreText" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/whereToWatchList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/whereToWatchText" />
+
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                    android:id="@+id/movieRecommendationsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:visibility="@{movieDetailsViewModel.movieRecommendations.empty ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@id/whereToWatchList"
+                    app:mediaList="@{movieDetailsViewModel.movieRecommendations}"
+                    app:mediaRow_title="@string/similar_movies"
+                    app:setOnMediaItemClicked="@{(media) -> movieDetailsViewModel.navigateToMediaDetails(media)}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

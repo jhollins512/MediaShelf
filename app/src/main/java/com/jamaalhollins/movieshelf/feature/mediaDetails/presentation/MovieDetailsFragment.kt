@@ -8,18 +8,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.data.api.ApiConstants
+import com.jamaalhollins.movieshelf.core.domain.model.Media
+import com.jamaalhollins.movieshelf.core.extensions.dpToPx
+import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
 import com.jamaalhollins.movieshelf.core.extensions.setImage
+import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
+import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderAdapter
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
 import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsBinding
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class MovieDetailsFragment : Fragment() {
@@ -34,11 +45,12 @@ class MovieDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         movieDetailsViewModel.loadMovieDetails(args.movieId)
+        movieDetailsViewModel.loadMovieWatchProviders(args.movieId, Locale.getDefault())
+        movieDetailsViewModel.loadSimilarMovies(args.movieId)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
@@ -53,6 +65,7 @@ class MovieDetailsFragment : Fragment() {
         setupToolbar()
         setupPosterPosition()
         setupScrollView()
+        setupWhereToWatchList()
         subscribeUi()
     }
 
@@ -71,20 +84,19 @@ class MovieDetailsFragment : Fragment() {
 
     private fun setupScrollView() {
         binding.movieDetailsContentScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            val offset =
-                binding.posterImage.y - getActionBarSize()
+            val offset = binding.posterImage.y - getActionBarSize()
 
             if (scrollY >= offset) {
                 if (isDarkModeEnabled(requireContext())) {
                     binding.movieDetailsToolbar.setBackgroundColor(
-                        ElevationOverlayProvider(requireContext())
-                            .compositeOverlayWithThemeSurfaceColorIfNeeded(12f)
+                        ElevationOverlayProvider(requireContext()).compositeOverlayWithThemeSurfaceColorIfNeeded(
+                            12f
+                        )
                     )
                 } else {
                     binding.movieDetailsToolbar.setBackgroundColor(
                         ContextCompat.getColor(
-                            requireContext(),
-                            R.color.primaryColor
+                            requireContext(), R.color.primaryColor
                         )
                     )
                 }
@@ -96,13 +108,24 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
+    private fun setupWhereToWatchList() {
+        binding.whereToWatchList.apply {
+            adapter = WatchProviderAdapter()
+            addItemDecoration(
+                MarginItemDecoration(
+                    start = 16.dpToPx(),
+                    end = 16.dpToPx(),
+                    bottom = 4.dpToPx()
+                )
+            )
+        }
+    }
+
     private fun getActionBarSize(): Int {
         val typedValue = TypedValue()
 
         return if (requireActivity().theme.resolveAttribute(
-                androidx.appcompat.R.attr.actionBarSize,
-                typedValue,
-                true
+                androidx.appcompat.R.attr.actionBarSize, typedValue, true
             )
         ) {
             TypedValue.complexToDimensionPixelSize(typedValue.data, resources.displayMetrics)
@@ -114,11 +137,35 @@ class MovieDetailsFragment : Fragment() {
     private fun subscribeUi() {
         movieDetailsViewModel.movieDetails.observe(viewLifecycleOwner) {
             binding.backdropImage.setImage(
-                ApiConstants.IMAGE_BASE_URL_W780 + it.backdropPath,
-                null
+                ApiConstants.IMAGE_BASE_URL_W780 + it.backdropPath, null
             )
 
             binding.posterImage.setImage(ApiConstants.IMAGE_BASE_URL_W500 + it.posterPath, null)
+        }
+
+        movieDetailsViewModel.movieWatchProviders.observe(viewLifecycleOwner) {
+            (binding.whereToWatchList.adapter as WatchProviderAdapter).submitList(it)
+        }
+
+        lifecycleScope.launch {
+            movieDetailsViewModel.uiEffect.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
+            ).collect {
+                when (it) {
+                    is MovieDetailsEffect.NavigateToWatchNowLink -> it.link.navigateToExternalUrl(
+                        requireContext()
+                    )
+
+                    is MovieDetailsEffect.NavigateToMovieDetails -> navigateToMediaDetails(it.media)
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private fun navigateToMediaDetails(media: Media) {
+        if (media.mediaType == "movie") {
+            findNavController().navigate("movieshelf://movieDetails/${media.id}".toUri())
         }
     }
 }

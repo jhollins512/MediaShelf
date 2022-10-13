@@ -8,4 +8,8 @@
     <string name="now_playing_movies">Now Playing Movies</string>
     <string name="upcoming_movies">Upcoming Movies</string>
     <string name="btn_more">More</string>
+    <string name="homepage">Homepage</string>
+    <string name="about_movie">About Movie</string>
+    <string name="similar_movies">Similar Movies</string>
+    <string name="where_to_watch">Where to Watch</string>
 </resources>
