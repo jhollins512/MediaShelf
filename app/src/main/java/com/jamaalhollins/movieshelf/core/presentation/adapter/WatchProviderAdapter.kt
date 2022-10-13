@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jamaalhollins.movieshelf.core.data.api.ApiConstants
 import com.jamaalhollins.movieshelf.core.domain.model.WatchProvider
 import com.jamaalhollins.movieshelf.core.extensions.setImage
 import com.jamaalhollins.movieshelf.core.presentation.model.WatchProviderType
+import com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper
 import com.jamaalhollins.movieshelf.databinding.ListItemWatchProviderBinding
 
 class WatchProviderAdapter :
@@ -30,7 +30,7 @@ class WatchProviderAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(providerPair: Pair<WatchProvider, List<WatchProviderType>>) {
             binding.watchProviderLogo.setImage(
-                ApiConstants.IMAGE_BASE_URL_W500 + providerPair.first.logoPath,
+                TMDBImageHelper.W500.getTMDBImageUrl(providerPair.first.logoPath),
                 null
             )
             binding.watchProviderTitle.text = providerPair.first.providerName

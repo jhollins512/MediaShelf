@@ -141,9 +141,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    android:visibility="@{movieDetailsViewModel.movieRecommendations.empty ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{movieDetailsViewModel.similarMovies.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/whereToWatchList"
-                    app:mediaList="@{movieDetailsViewModel.movieRecommendations}"
+                    app:mediaList="@{movieDetailsViewModel.similarMovies}"
                     app:mediaRow_title="@string/similar_movies"
                     app:setOnMediaItemClicked="@{(media) -> movieDetailsViewModel.navigateToMediaDetails(media)}" />
 

@@ -27,8 +27,8 @@ class MovieDetailsViewModel(
     private val _movieDetails = MutableLiveData<MovieDetails>()
     val movieDetails: LiveData<MovieDetails> = _movieDetails
 
-    private val _movieRecommendations = MutableLiveData<List<Media>>()
-    val movieRecommendations: LiveData<List<Media>> = _movieRecommendations
+    private val _similarMovies = MutableLiveData<List<Media>>()
+    val similarMovies: LiveData<List<Media>> = _similarMovies
 
     private val _movieWatchProviders =
         MutableLiveData<List<Pair<WatchProvider, List<WatchProviderType>>>>()
@@ -46,7 +46,7 @@ class MovieDetailsViewModel(
 
     fun loadSimilarMovies(movieId: Int) {
         viewModelScope.launch {
-            _movieRecommendations.value = getMovieRecommendations.invoke(movieId)
+            _similarMovies.value = getMovieRecommendations.invoke(movieId)
         }
     }
 

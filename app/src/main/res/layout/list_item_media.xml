@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper" />
+
         <variable
             name="media"
             type="com.jamaalhollins.movieshelf.core.domain.model.Media" />
@@ -30,10 +32,10 @@
 
             <ImageView
                 android:id="@+id/posterImage"
+                imageUrl="@{TMDBImageHelper.W500.getTMDBImageUrl(media.posterPath)}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:error="@{@drawable/ic_baseline_media_48}"
-                app:imageUrl="@{media.posterPath}"
                 app:layout_constraintBottom_toTopOf="@id/title"
                 app:layout_constraintDimensionRatio="2:3"
                 app:layout_constraintStart_toStartOf="parent"

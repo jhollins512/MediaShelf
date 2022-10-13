@@ -18,13 +18,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.jamaalhollins.movieshelf.R
-import com.jamaalhollins.movieshelf.core.data.api.ApiConstants
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
 import com.jamaalhollins.movieshelf.core.extensions.setImage
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
 import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderAdapter
+import com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
 import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsBinding
@@ -137,10 +137,13 @@ class MovieDetailsFragment : Fragment() {
     private fun subscribeUi() {
         movieDetailsViewModel.movieDetails.observe(viewLifecycleOwner) {
             binding.backdropImage.setImage(
-                ApiConstants.IMAGE_BASE_URL_W780 + it.backdropPath, null
+                TMDBImageHelper.W780.getTMDBImageUrl(it.backdropPath),
+                null
             )
-
-            binding.posterImage.setImage(ApiConstants.IMAGE_BASE_URL_W500 + it.posterPath, null)
+            binding.posterImage.setImage(
+                TMDBImageHelper.W780.getTMDBImageUrl(it.posterPath),
+                null
+            )
         }
 
         movieDetailsViewModel.movieWatchProviders.observe(viewLifecycleOwner) {
