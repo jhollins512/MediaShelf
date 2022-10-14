@@ -23,7 +23,7 @@ import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
-import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderAdapter
+import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderWithViewingOptionsAdapter
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
 import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsBinding
@@ -64,7 +64,6 @@ class MovieDetailsFragment : Fragment() {
         setupToolbar()
         setupPosterPosition()
         setupScrollView()
-        setupWhereToWatchList()
         subscribeUi()
     }
 
@@ -107,19 +106,6 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupWhereToWatchList() {
-        binding.whereToWatchList.apply {
-            adapter = WatchProviderAdapter()
-            addItemDecoration(
-                MarginItemDecoration(
-                    start = 16.dpToPx(),
-                    end = 16.dpToPx(),
-                    bottom = 4.dpToPx()
-                )
-            )
-        }
-    }
-
     private fun getActionBarSize(): Int {
         val typedValue = TypedValue()
 
@@ -134,11 +120,6 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        movieDetailsViewModel.movieWatchProviders.observe(viewLifecycleOwner) {
-            binding.whereToWatchGroup.isGone = it.isNullOrEmpty()
-            (binding.whereToWatchList.adapter as WatchProviderAdapter).submitList(it)
-        }
-
         lifecycleScope.launch {
             movieDetailsViewModel.uiEffect.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED

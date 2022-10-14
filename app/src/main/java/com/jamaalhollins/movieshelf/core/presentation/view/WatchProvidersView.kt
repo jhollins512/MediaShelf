@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.jamaalhollins.movieshelf.R
-import com.jamaalhollins.movieshelf.core.domain.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
-import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderAdapter
+import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderWithViewingOptionsAdapter
 import com.jamaalhollins.movieshelf.databinding.ViewWatchProvidersBinding
 
 class WatchProvidersView @JvmOverloads constructor(
@@ -40,19 +40,27 @@ class WatchProvidersView @JvmOverloads constructor(
 
     private fun setupWatchProviderList() {
         binding.watchProvidersList.apply {
-            adapter = WatchProviderAdapter()
+            adapter = WatchProviderWithViewingOptionsAdapter()
             addItemDecoration(
                 MarginItemDecoration(
-                    end = 16.dpToPx(),
+                    bottom = 4.dpToPx()
                 )
             )
         }
     }
+
+    fun setWatchProvidersList(media: List<WatchProviderWithViewingOptions>) {
+        val adapter = binding.watchProvidersList.adapter as WatchProviderWithViewingOptionsAdapter
+        adapter.submitList(media)
+    }
 }
 
 @BindingAdapter("app:watchProvidersList")
-fun setWatchProviders(view: MediaRowView, media: List<Media>?) {
-//    media?.let {
-//        view.setRowMediaList(media)
-//    }
+fun setWatchProviders(
+    view: WatchProvidersView,
+    watchProviders: List<WatchProviderWithViewingOptions>?
+) {
+    watchProviders?.let {
+        view.setWatchProvidersList(watchProviders)
+    }
 }

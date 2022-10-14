@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
 import com.jamaalhollins.movieshelf.databinding.ListItemWatchProviderBinding
 
-class WatchProviderAdapter :
-    ListAdapter<WatchProviderWithViewingOptions, WatchProviderAdapter.WatchProviderWithViewingOptionsViewHolder>(
+class WatchProviderWithViewingOptionsAdapter :
+    ListAdapter<WatchProviderWithViewingOptions, WatchProviderWithViewingOptionsAdapter.WatchProviderWithViewingOptionsViewHolder>(
         WatchProviderWithViewingOptionsComparator
     ) {
 

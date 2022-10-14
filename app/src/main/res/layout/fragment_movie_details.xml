@@ -122,32 +122,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
 
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/whereToWatchGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:constraint_referenced_ids="whereToWatchText, whereToWatchList" />
-
-                <TextView
-                    android:id="@+id/whereToWatchText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_normal"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:layout_marginEnd="@dimen/spacing_normal"
-                    android:text="@string/label_where_to_watch"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:layout_constraintTop_toBottomOf="@id/aboutMovieMoreText" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/whereToWatchList"
+                <com.jamaalhollins.movieshelf.core.presentation.view.WatchProvidersView
+                    android:id="@+id/whereToWatchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
+                    android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@id/whereToWatchText" />
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:paddingEnd="@dimen/spacing_normal"
+                    app:layout_constraintTop_toBottomOf="@id/aboutMovieMoreText"
+                    app:watchProvidersList="@{movieDetailsViewModel.movieWatchProviders}"
+                    app:watchProviders_title="@string/label_where_to_watch" />
 
                 <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
                     android:id="@+id/similarMoviesList"
@@ -155,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:visibility="@{movieDetailsViewModel.similarMovies.empty ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintTop_toBottomOf="@id/whereToWatchList"
+                    app:layout_constraintTop_toBottomOf="@id/whereToWatchView"
                     app:mediaList="@{movieDetailsViewModel.similarMovies}"
                     app:mediaRow_title="@string/label_similar_movies"
                     app:setOnMediaItemClicked="@{(media) -> movieDetailsViewModel.navigateToMediaDetails(media)}" />
