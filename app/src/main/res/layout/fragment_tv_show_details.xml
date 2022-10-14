@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper" />
+
+        <variable
+            name="tvShowDetailsViewModel"
+            type="com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TvShowDetailsViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.movieDetails.presentation.MovieDetailsFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/tvShowDetailsContentScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/spacing_normal">
+
+                <ImageView
+                    android:id="@+id/backdropImage"
+                    error="@{@drawable/ic_baseline_media_48}"
+                    imageUrl="@{TMDBImageHelper.W780.getTMDBImageUrl(tvShowDetailsViewModel.tvShowDetails.backdropPath)}"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:foreground="@color/overlay_black"
+                    app:layout_constraintDimensionRatio="16:9"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/posterImage"
+                    error="@{@drawable/ic_baseline_media_48}"
+                    imageUrl="@{TMDBImageHelper.W500.getTMDBImageUrl(tvShowDetailsViewModel.tvShowDetails.posterPath)}"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="2:3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/backdropImage"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintWidth_percent="0.30" />
+
+                <TextView
+                    android:id="@+id/tvShowTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:text="@{tvShowDetailsViewModel.tvShowDetails.name}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/posterImage"
+                    app:layout_constraintTop_toBottomOf="@id/backdropImage"
+                    tools:text="Hocus Pocus 2" />
+
+                <TextView
+                    android:id="@+id/tvShowFirstAirDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_smallish"
+                    android:text="@{tvShowDetailsViewModel.tvShowDetails.firstAirDate}"
+                    app:layout_constraintStart_toStartOf="@id/tvShowTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvShowTitle"
+                    tools:text="2021-12-17" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/homepageButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:onClick="@{() -> tvShowDetailsViewModel.showHomepage(tvShowDetailsViewModel.tvShowDetails.homepage)}"
+                    android:text="@string/btn_homepage"
+                    android:visibility="@{tvShowDetailsViewModel.tvShowDetails.homepage.empty ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@id/posterImage" />
+
+                <TextView
+                    android:id="@+id/aboutTvShowText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:text="@string/label_about_movie"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintTop_toBottomOf="@id/homepageButton" />
+
+                <TextView
+                    android:id="@+id/tvShowOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingTop="@dimen/spacing_xsmall"
+                    android:text="@{tvShowDetailsViewModel.tvShowDetails.overview}"
+                    app:layout_constraintTop_toBottomOf="@id/aboutTvShowText"
+                    tools:text="Movie Overview" />
+
+                <TextView
+                    android:id="@+id/aboutTvShowMoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:text="@string/btn_more"
+                    android:textColor="@color/link_blue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvShowOverview" />
+
+                <com.jamaalhollins.movieshelf.core.presentation.view.WatchProvidersView
+                    android:id="@+id/whereToWatchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingStart="@dimen/spacing_normal"
+                    android:paddingEnd="@dimen/spacing_normal"
+                    app:layout_constraintTop_toBottomOf="@id/aboutTvShowMoreText"
+                    app:watchProvidersList="@{tvShowDetailsViewModel.tvShowWatchProviders}"
+                    app:watchProviders_title="@string/label_where_to_watch" />
+
+                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                    android:id="@+id/similarTvShowsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:visibility="@{tvShowDetailsViewModel.similarTvShows.empty ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@id/whereToWatchView"
+                    app:mediaList="@{tvShowDetailsViewModel.similarTvShows}"
+                    app:mediaRow_title="@string/label_similar_movies"
+                    app:setOnMediaItemClicked="@{(media) -> tvShowDetailsViewModel.navigateToMediaDetails(media)}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tvShowDetailsToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_baseline_arrow_white_24"
+            app:navigationIconTint="@android:color/white" />
+
+    </FrameLayout>
+</layout>

@@ -1,4 +1,4 @@
-package com.jamaalhollins.movieshelf.feature.movieDetails.presentation
+package com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.updateLayoutParams
@@ -22,34 +21,34 @@ import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
-import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsBinding
+import com.jamaalhollins.movieshelf.databinding.FragmentTvShowDetailsBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
+class TvShowDetailsFragment : Fragment() {
 
-class MovieDetailsFragment : Fragment() {
+    private val tvShowDetailsViewModel: TvShowDetailsViewModel by viewModel()
 
-    private var _binding: FragmentMovieDetailsBinding? = null
+    private var _binding: FragmentTvShowDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val movieDetailsViewModel: MovieDetailsViewModel by viewModel()
-    private val args: MovieDetailsFragmentArgs by navArgs()
+    private val args: TvShowDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        movieDetailsViewModel.loadMovieDetails(args.movieId)
-        movieDetailsViewModel.loadMovieWatchProviders(args.movieId, Locale.getDefault())
-        movieDetailsViewModel.loadSimilarMovies(args.movieId)
+        tvShowDetailsViewModel.loadTvShowDetails(args.tvShowId)
+        tvShowDetailsViewModel.loadTvShowWatchProviders(args.tvShowId, Locale.getDefault())
+        tvShowDetailsViewModel.loadSimilarTvShows(args.tvShowId)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false).apply {
+        _binding = FragmentTvShowDetailsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            movieDetailsViewModel = this@MovieDetailsFragment.movieDetailsViewModel
+            tvShowDetailsViewModel = this@TvShowDetailsFragment.tvShowDetailsViewModel
         }
         return binding.root
     }
@@ -69,38 +68,38 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        binding.movieDetailsToolbar.setNavigationOnClickListener {
+        binding.tvShowDetailsToolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
 
     private fun setupPosterPosition() {
         val marginY = (.10 * getScreenWidth(requireActivity())).toInt()
-        binding.posterImage.updateLayoutParams<MarginLayoutParams> {
+        binding.posterImage.updateLayoutParams<ViewGroup.MarginLayoutParams> {
             this.topMargin = -marginY
         }
     }
 
     private fun setupScrollView() {
-        binding.movieDetailsContentScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+        binding.tvShowDetailsContentScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             val offset = binding.posterImage.y - getActionBarSize()
 
             if (scrollY >= offset) {
                 if (isDarkModeEnabled(requireContext())) {
-                    binding.movieDetailsToolbar.setBackgroundColor(
+                    binding.tvShowDetailsToolbar.setBackgroundColor(
                         ElevationOverlayProvider(requireContext()).compositeOverlayWithThemeSurfaceColorIfNeeded(
                             12f
                         )
                     )
                 } else {
-                    binding.movieDetailsToolbar.setBackgroundColor(
+                    binding.tvShowDetailsToolbar.setBackgroundColor(
                         ContextCompat.getColor(
                             requireContext(), R.color.primaryColor
                         )
                     )
                 }
             } else {
-                binding.movieDetailsToolbar.setBackgroundColor(
+                binding.tvShowDetailsToolbar.setBackgroundColor(
                     Color.TRANSPARENT
                 )
             }
@@ -122,15 +121,15 @@ class MovieDetailsFragment : Fragment() {
 
     private fun subscribeUi() {
         lifecycleScope.launch {
-            movieDetailsViewModel.uiEffect.flowWithLifecycle(
+            tvShowDetailsViewModel.uiEffect.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
             ).collect {
                 when (it) {
-                    is MovieDetailsEffect.NavigateToWatchNowLink -> it.link.navigateToExternalUrl(
+                    is TvShowDetailsEffect.NavigateToWatchNowLink -> it.link.navigateToExternalUrl(
                         requireContext()
                     )
 
-                    is MovieDetailsEffect.NavigateToMovieDetails -> navigateToMediaDetails(it.media)
+                    is TvShowDetailsEffect.NavigateToTvShowDetails -> navigateToMediaDetails(it.media)
                     else -> {}
                 }
             }
@@ -138,6 +137,6 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun navigateToMediaDetails(media: Media) {
-        findNavController().navigate("movieshelf://movie/${media.id}".toUri())
+        findNavController().navigate("movieshelf://tv/${media.id}".toUri())
     }
 }

@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jamaalhollins.movieshelf.core.domain.FormatToWatchProviderWithViewingOptionsUseCase
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.domain.model.MovieDetails
 import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
-import com.jamaalhollins.movieshelf.feature.movieDetails.domain.FormatToWatchProviderWithViewingOptionsUseCase
 import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieDetailsUseCase
 import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieRecommendationsUseCase
 import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieWatchProvidersForLocaleUseCase
@@ -19,7 +19,7 @@ import java.util.*
 class MovieDetailsViewModel(
     private val getMovieDetails: GetMovieDetailsUseCase,
     private val getMovieRecommendations: GetMovieRecommendationsUseCase,
-    private val getMovieWatchProviders: GetMovieWatchProvidersForLocaleUseCase,
+    private val getMovieWatchProvidersForLocale: GetMovieWatchProvidersForLocaleUseCase,
     private val formatWatchProvidersWithType: FormatToWatchProviderWithViewingOptionsUseCase
 ) : ViewModel() {
 
@@ -51,14 +51,9 @@ class MovieDetailsViewModel(
 
     fun loadMovieWatchProviders(movieId: Int, locale: Locale) {
         viewModelScope.launch {
-            val watchProviderCountry = getMovieWatchProviders.invoke(movieId, locale)
-
-            if (watchProviderCountry == null) {
-                _movieWatchProviders.value = emptyList()
-            } else {
-                _movieWatchProviders.value =
-                    formatWatchProvidersWithType.invoke(watchProviderCountry)
-            }
+            val watchProviderCountry = getMovieWatchProvidersForLocale.invoke(movieId, locale)
+            _movieWatchProviders.value =
+                formatWatchProvidersWithType.invoke(watchProviderCountry)
         }
     }
 

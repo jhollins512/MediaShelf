@@ -42,6 +42,11 @@ class HomeFragment : Fragment() {
         observeUiEffects()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupToolbar() {
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
@@ -61,13 +66,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToMediaDetails(media: Media) {
-        if (media.mediaType == "movie") {
-            findNavController().navigate("movieshelf://movieDetails/${media.id}".toUri())
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        findNavController().navigate("movieshelf://${media.mediaType}/${media.id}".toUri())
     }
 }

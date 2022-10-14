@@ -17,7 +17,7 @@
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details">
 
-        <deepLink app:uri="movieshelf://movieDetails/{movieId}" />
+        <deepLink app:uri="movieshelf://movie/{movieId}" />
 
         <argument
             android:name="movieId"
@@ -25,4 +25,17 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/tvShowDetailsFragment"
+        android:name="com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TvShowDetailsFragment"
+        android:label="fragment_tv_show_details"
+        tools:layout="@layout/fragment_tv_show_details">
+
+        <deepLink app:uri="movieshelf://tv/{tvShowId}" />
+
+        <argument
+            android:name="tvShowId"
+            app:argType="integer" />
+
+    </fragment>
 </navigation>

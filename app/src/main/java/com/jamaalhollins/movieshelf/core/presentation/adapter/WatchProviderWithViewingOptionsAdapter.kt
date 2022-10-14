@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
-import com.jamaalhollins.movieshelf.databinding.ListItemWatchProviderBinding
+import com.jamaalhollins.movieshelf.databinding.ListItemWatchProviderWithOptionsBinding
 
 class WatchProviderWithViewingOptionsAdapter :
     ListAdapter<WatchProviderWithViewingOptions, WatchProviderWithViewingOptionsAdapter.WatchProviderWithViewingOptionsViewHolder>(
@@ -18,7 +18,11 @@ class WatchProviderWithViewingOptionsAdapter :
         viewType: Int
     ): WatchProviderWithViewingOptionsViewHolder {
         val binding =
-            ListItemWatchProviderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ListItemWatchProviderWithOptionsBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return WatchProviderWithViewingOptionsViewHolder(binding)
     }
 
@@ -29,7 +33,7 @@ class WatchProviderWithViewingOptionsAdapter :
         holder.bind(getItem(position))
     }
 
-    inner class WatchProviderWithViewingOptionsViewHolder(private val binding: ListItemWatchProviderBinding) :
+    inner class WatchProviderWithViewingOptionsViewHolder(private val binding: ListItemWatchProviderWithOptionsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(watchProvider: WatchProviderWithViewingOptions) {
             binding.watchProvider = watchProvider

@@ -1,4 +1,4 @@
-package com.jamaalhollins.movieshelf.feature.movieDetails.domain
+package com.jamaalhollins.movieshelf.feature.tvShowDetails.domain
 
 import com.jamaalhollins.movieshelf.core.data.repository.MediaRepository
 import com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails
