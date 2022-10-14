@@ -1,7 +1,7 @@
 package com.jamaalhollins.movieshelf.core.di
 
 import com.jamaalhollins.movieshelf.feature.home.presentation.HomeViewModel
-import com.jamaalhollins.movieshelf.feature.mediaDetails.presentation.MovieDetailsViewModel
+import com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

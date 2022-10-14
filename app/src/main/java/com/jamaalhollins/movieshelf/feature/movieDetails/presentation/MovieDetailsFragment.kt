@@ -1,4 +1,4 @@
-package com.jamaalhollins.movieshelf.feature.mediaDetails.presentation
+package com.jamaalhollins.movieshelf.feature.movieDetails.presentation
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.core.view.isGone
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -20,10 +19,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
-import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
-import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
-import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderWithViewingOptionsAdapter
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
 import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsBinding
@@ -137,8 +133,6 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun navigateToMediaDetails(media: Media) {
-        if (media.mediaType == "movie") {
-            findNavController().navigate("movieshelf://movieDetails/${media.id}".toUri())
-        }
+        findNavController().navigate("movieshelf://movieDetails/${media.id}".toUri())
     }
 }

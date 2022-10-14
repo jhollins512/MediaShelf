@@ -9,14 +9,14 @@
 
         <variable
             name="movieDetailsViewModel"
-            type="com.jamaalhollins.movieshelf.feature.mediaDetails.presentation.MovieDetailsViewModel" />
+            type="com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.mediaDetails.presentation.MovieDetailsFragment">
+        tools:context=".feature.movieDetails.presentation.MovieDetailsFragment">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/movieDetailsContentScrollView"

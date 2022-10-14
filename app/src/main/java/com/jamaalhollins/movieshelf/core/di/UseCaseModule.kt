@@ -1,7 +1,7 @@
 package com.jamaalhollins.movieshelf.core.di
 
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.*
+import com.jamaalhollins.movieshelf.feature.movieDetails.domain.*
 import org.koin.dsl.module
 
 val useCaseModule = module {

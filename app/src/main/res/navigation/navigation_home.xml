@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.mediaDetails.presentation.MovieDetailsFragment"
+        android:name="com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsFragment"
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details">
 

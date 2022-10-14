@@ -1,4 +1,4 @@
-package com.jamaalhollins.movieshelf.feature.mediaDetails.presentation
+package com.jamaalhollins.movieshelf.feature.movieDetails.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.domain.model.MovieDetails
 import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.FormatToWatchProviderWithViewingOptionsUseCase
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieDetailsUseCase
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieRecommendationsUseCase
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieWatchProvidersForLocaleUseCase
+import com.jamaalhollins.movieshelf.feature.movieDetails.domain.FormatToWatchProviderWithViewingOptionsUseCase
+import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieDetailsUseCase
+import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieRecommendationsUseCase
+import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieWatchProvidersForLocaleUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
