@@ -5,6 +5,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper" />
+
         <variable
             name="movieDetailsViewModel"
             type="com.jamaalhollins.movieshelf.feature.mediaDetails.presentation.MovieDetailsViewModel" />
@@ -28,6 +30,8 @@
 
                 <ImageView
                     android:id="@+id/backdropImage"
+                    error="@{@drawable/ic_baseline_media_48}"
+                    imageUrl="@{TMDBImageHelper.W780.getTMDBImageUrl(movieDetailsViewModel.movieDetails.backdropPath)}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:foreground="@color/overlay_black"
@@ -36,6 +40,8 @@
 
                 <ImageView
                     android:id="@+id/posterImage"
+                    error="@{@drawable/ic_baseline_media_48}"
+                    imageUrl="@{TMDBImageHelper.W500.getTMDBImageUrl(movieDetailsViewModel.movieDetails.posterPath)}"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="@dimen/spacing_large"
@@ -71,14 +77,14 @@
                     tools:text="2021-12-17" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/watchNowButton"
+                    android:id="@+id/homepageButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:onClick="@{() -> movieDetailsViewModel.watchNow(movieDetailsViewModel.movieDetails.homepage)}"
-                    android:text="@string/homepage"
+                    android:onClick="@{() -> movieDetailsViewModel.showHomepage(movieDetailsViewModel.movieDetails.homepage)}"
+                    android:text="@string/btn_homepage"
                     android:visibility="@{movieDetailsViewModel.movieDetails.homepage.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/posterImage" />
 
@@ -89,9 +95,9 @@
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:text="@string/about_movie"
+                    android:text="@string/label_about_movie"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:layout_constraintTop_toBottomOf="@id/watchNowButton" />
+                    app:layout_constraintTop_toBottomOf="@id/homepageButton" />
 
                 <TextView
                     android:id="@+id/movieOverview"
@@ -116,6 +122,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/whereToWatchGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="whereToWatchText, whereToWatchList" />
+
                 <TextView
                     android:id="@+id/whereToWatchText"
                     android:layout_width="match_parent"
@@ -123,7 +136,7 @@
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:text="@string/where_to_watch"
+                    android:text="@string/label_where_to_watch"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     app:layout_constraintTop_toBottomOf="@id/aboutMovieMoreText" />
 
@@ -137,14 +150,14 @@
                     app:layout_constraintTop_toBottomOf="@id/whereToWatchText" />
 
                 <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
-                    android:id="@+id/movieRecommendationsList"
+                    android:id="@+id/similarMoviesList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:visibility="@{movieDetailsViewModel.similarMovies.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/whereToWatchList"
                     app:mediaList="@{movieDetailsViewModel.similarMovies}"
-                    app:mediaRow_title="@string/similar_movies"
+                    app:mediaRow_title="@string/label_similar_movies"
                     app:setOnMediaItemClicked="@{(media) -> movieDetailsViewModel.navigateToMediaDetails(media)}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

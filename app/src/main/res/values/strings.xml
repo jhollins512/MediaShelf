@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">Movie Shelf</string>
 
-    <string name="trending_movies">Trending Movies</string>
-    <string name="trending_tv">Trending TV</string>
-    <string name="popular_tv">Popular TV</string>
-    <string name="popular_movies">Popular Movies</string>
-    <string name="now_playing_movies">Now Playing Movies</string>
-    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="label_trending_movies">Trending Movies</string>
+    <string name="label_trending_tv">Trending TV</string>
+    <string name="label_popular_tv">Popular TV</string>
+    <string name="label_popular_movies">Popular Movies</string>
+    <string name="label_now_playing_movies">Now Playing Movies</string>
+    <string name="label_upcoming_movies">Upcoming Movies</string>
     <string name="btn_more">More</string>
-    <string name="homepage">Homepage</string>
-    <string name="about_movie">About Movie</string>
-    <string name="similar_movies">Similar Movies</string>
-    <string name="where_to_watch">Where to Watch</string>
+    <string name="btn_homepage">Homepage</string>
+    <string name="label_about_movie">About Movie</string>
+    <string name="label_similar_movies">Similar Movies</string>
+    <string name="label_where_to_watch">Where to Watch</string>
+    <string name="label_stream">Stream</string>
+    <string name="label_rent">Rent</string>
+    <string name="label_buy">Buy</string>
 </resources>

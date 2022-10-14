@@ -3,4 +3,8 @@
     <declare-styleable name="MediaRowView">
         <attr name="mediaRow_title" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="WatchProvidersView">
+        <attr name="watchProviders_title" format="string" />
+    </declare-styleable>
 </resources>

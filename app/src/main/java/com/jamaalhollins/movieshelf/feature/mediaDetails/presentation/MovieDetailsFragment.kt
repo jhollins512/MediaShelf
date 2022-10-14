@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.view.isGone
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -21,10 +22,8 @@ import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
-import com.jamaalhollins.movieshelf.core.extensions.setImage
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
 import com.jamaalhollins.movieshelf.core.presentation.adapter.WatchProviderAdapter
-import com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
 import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsBinding
@@ -135,18 +134,8 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        movieDetailsViewModel.movieDetails.observe(viewLifecycleOwner) {
-            binding.backdropImage.setImage(
-                TMDBImageHelper.W780.getTMDBImageUrl(it.backdropPath),
-                null
-            )
-            binding.posterImage.setImage(
-                TMDBImageHelper.W780.getTMDBImageUrl(it.posterPath),
-                null
-            )
-        }
-
         movieDetailsViewModel.movieWatchProviders.observe(viewLifecycleOwner) {
+            binding.whereToWatchGroup.isGone = it.isNullOrEmpty()
             (binding.whereToWatchList.adapter as WatchProviderAdapter).submitList(it)
         }
 

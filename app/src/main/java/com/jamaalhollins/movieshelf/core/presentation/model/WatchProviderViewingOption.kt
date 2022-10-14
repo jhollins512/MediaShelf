@@ -1,6 +1,6 @@
 package com.jamaalhollins.movieshelf.core.presentation.model
 
-enum class WatchProviderType {
+enum class WatchProviderViewingOption {
     BUY,
     RENT,
     STREAMING

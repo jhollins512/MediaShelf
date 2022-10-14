@@ -15,5 +15,5 @@ val useCaseModule = module {
     factory { GetTVShowDetailsUseCase(get()) }
     factory { GetMovieRecommendationsUseCase(get()) }
     factory { GetMovieWatchProvidersForLocaleUseCase(get()) }
-    factory { FormatWatchProvidersWithType() }
+    factory { FormatToWatchProviderWithViewingOptionsUseCase() }
 }

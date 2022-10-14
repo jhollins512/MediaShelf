@@ -34,15 +34,16 @@ class MediaRowView @JvmOverloads constructor(
         attributes.recycle()
     }
 
+
+    private fun setTitle(title: String) {
+        binding.title.text = title
+    }
+
     private fun setupMediaList() {
         binding.mediaList.apply {
             adapter = MediaAdapter { onMediaItemClickedListener?.onMediaItemClicked(it) }
             addItemDecoration(MarginItemDecoration(end = 8.dpToPx()))
         }
-    }
-
-    private fun setTitle(title: String) {
-        binding.title.text = title
     }
 
     fun setRowMediaList(media: List<Media>) {

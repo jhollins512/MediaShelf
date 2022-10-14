@@ -1,41 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout>
 
-    <ImageView
-        android:id="@+id/watchProviderLogo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/watchProviderTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_normal"
-        app:layout_constraintBottom_toTopOf="@+id/watchProviderWatchOptionsText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/watchProviderLogo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Amazon" />
+        <import type="com.jamaalhollins.movieshelf.core.utils.StringUtilsKt" />
 
-    <TextView
-        android:id="@+id/watchProviderWatchOptionsText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_normal"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/watchProviderLogo"
-        app:layout_constraintTop_toBottomOf="@+id/watchProviderTitle"
-        android:text="Rent or Buy" />
+        <import type="com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <import type="com.jamaalhollins.movieshelf.core.presentation.model.WatchProviderViewingOption" />
+
+        <variable
+            name="watchProvider"
+            type="com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/watchProviderLogo"
+            error="@{@drawable/ic_baseline_media_48}"
+            imageUrl="@{TMDBImageHelper.W500.getTMDBImageUrl(watchProvider.logoPath)}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/watchProviderTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:text="@{watchProvider.providerName}"
+            app:layout_constraintBottom_toTopOf="@+id/watchProviderWatchOptionsText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/watchProviderLogo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Amazon" />
+
+        <TextView
+            android:id="@+id/watchProviderWatchOptionsText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:text="@{StringUtilsKt.formatWatchProviderOptionsText(context,watchProvider.viewOptions)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/watchProviderLogo"
+            app:layout_constraintTop_toBottomOf="@+id/watchProviderTitle"
+            tools:text="Rent / Buy" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

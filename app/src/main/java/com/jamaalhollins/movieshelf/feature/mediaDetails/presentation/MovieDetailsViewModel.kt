@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.domain.model.MovieDetails
-import com.jamaalhollins.movieshelf.core.domain.model.WatchProvider
-import com.jamaalhollins.movieshelf.core.presentation.model.WatchProviderType
-import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.FormatWatchProvidersWithType
+import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
+import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.FormatToWatchProviderWithViewingOptionsUseCase
 import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieDetailsUseCase
 import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieRecommendationsUseCase
 import com.jamaalhollins.movieshelf.feature.mediaDetails.domain.GetMovieWatchProvidersForLocaleUseCase
@@ -21,7 +20,7 @@ class MovieDetailsViewModel(
     private val getMovieDetails: GetMovieDetailsUseCase,
     private val getMovieRecommendations: GetMovieRecommendationsUseCase,
     private val getMovieWatchProviders: GetMovieWatchProvidersForLocaleUseCase,
-    private val formatWatchProvidersWithType: FormatWatchProvidersWithType
+    private val formatWatchProvidersWithType: FormatToWatchProviderWithViewingOptionsUseCase
 ) : ViewModel() {
 
     private val _movieDetails = MutableLiveData<MovieDetails>()
@@ -31,8 +30,8 @@ class MovieDetailsViewModel(
     val similarMovies: LiveData<List<Media>> = _similarMovies
 
     private val _movieWatchProviders =
-        MutableLiveData<List<Pair<WatchProvider, List<WatchProviderType>>>>()
-    val movieWatchProviders: LiveData<List<Pair<WatchProvider, List<WatchProviderType>>>> =
+        MutableLiveData<List<WatchProviderWithViewingOptions>>()
+    val movieWatchProviders: LiveData<List<WatchProviderWithViewingOptions>> =
         _movieWatchProviders
 
     private val _uiEffect = MutableSharedFlow<MovieDetailsEffect>()
@@ -54,13 +53,16 @@ class MovieDetailsViewModel(
         viewModelScope.launch {
             val watchProviderCountry = getMovieWatchProviders.invoke(movieId, locale)
 
-            watchProviderCountry?.let {
-                _movieWatchProviders.value = formatWatchProvidersWithType.invoke(it)
+            if (watchProviderCountry == null) {
+                _movieWatchProviders.value = emptyList()
+            } else {
+                _movieWatchProviders.value =
+                    formatWatchProvidersWithType.invoke(watchProviderCountry)
             }
         }
     }
 
-    fun watchNow(link: String?) {
+    fun showHomepage(link: String?) {
         viewModelScope.launch {
             link?.let {
                 _uiEffect.emit(MovieDetailsEffect.NavigateToWatchNowLink(link))

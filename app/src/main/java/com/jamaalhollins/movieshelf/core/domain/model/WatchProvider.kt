@@ -5,12 +5,4 @@ data class WatchProvider(
     val logoPath: String,
     val providerId: Int,
     val providerName: String
-) {
-    override fun equals(other: Any?): Boolean {
-        return other is WatchProvider && providerId == other.providerId
-    }
-
-    override fun hashCode(): Int {
-        return providerId.hashCode()
-    }
-}
+)

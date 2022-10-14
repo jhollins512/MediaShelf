@@ -35,7 +35,7 @@
                 imageUrl="@{TMDBImageHelper.W500.getTMDBImageUrl(media.posterPath)}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:error="@{@drawable/ic_baseline_media_48}"
+                error="@{@drawable/ic_baseline_media_48}"
                 app:layout_constraintBottom_toTopOf="@id/title"
                 app:layout_constraintDimensionRatio="2:3"
                 app:layout_constraintStart_toStartOf="parent"
