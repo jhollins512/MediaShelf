@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.jamaalhollins.movieshelf.core.extensions.dpToPx
+import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
+import com.jamaalhollins.movieshelf.core.presentation.adapter.GenresAdapter
 import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsAboutBinding
 
 class MovieDetailsAboutFragment : Fragment() {
@@ -34,6 +39,19 @@ class MovieDetailsAboutFragment : Fragment() {
         }
 
         setupToolbar()
+        setupGenreList()
+    }
+
+    private fun setupGenreList() {
+        val genresAdapter = GenresAdapter()
+
+        binding.movieAboutLayout.genresList.apply {
+            adapter = genresAdapter
+            layoutManager = FlexboxLayoutManager(requireContext(), FlexDirection.ROW)
+            addItemDecoration(MarginItemDecoration(end = 8.dpToPx()))
+        }
+
+        genresAdapter.submitList(args.movieDetails.genres)
     }
 
     private fun setupToolbar() {

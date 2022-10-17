@@ -9,6 +9,6 @@ data class ApiGenre(
     @Json(name = "id") val id: Int, @Json(name = "name") val name: String
 ) {
     fun mapToDomain(): Genre {
-        return Genre(name)
+        return Genre(id, name)
     }
 }
