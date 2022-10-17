@@ -23,6 +23,22 @@
             android:name="movieId"
             app:argType="integer" />
 
+        <action
+            android:id="@+id/action_movie_about"
+            app:destination="@id/movieDetailsAboutFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailsAboutFragment"
+        android:name="com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsAboutFragment"
+        android:label="MovieAboutFragment"
+        tools:layout="@layout/fragment_movie_details_about">
+
+        <argument
+            android:name="movieDetails"
+            app:argType="com.jamaalhollins.movieshelf.core.domain.model.MovieDetails" />
+
     </fragment>
 
     <fragment
@@ -38,4 +54,5 @@
             app:argType="integer" />
 
     </fragment>
+
 </navigation>

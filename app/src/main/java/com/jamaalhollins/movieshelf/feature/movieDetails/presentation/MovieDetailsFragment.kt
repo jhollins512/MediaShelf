@@ -19,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.MovieDetails
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
@@ -51,6 +52,7 @@ class MovieDetailsFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             movieDetailsViewModel = this@MovieDetailsFragment.movieDetailsViewModel
         }
+
         return binding.root
     }
 
@@ -131,7 +133,9 @@ class MovieDetailsFragment : Fragment() {
                     )
 
                     is MovieDetailsEffect.NavigateToMovieDetails -> navigateToMediaDetails(it.media)
-                    else -> {}
+                    is MovieDetailsEffect.NavigateToMovieDetailsAbout -> navigateToMovieDetailsAbout(
+                        it.movieDetails
+                    )
                 }
             }
         }
@@ -139,5 +143,9 @@ class MovieDetailsFragment : Fragment() {
 
     private fun navigateToMediaDetails(media: Media) {
         findNavController().navigate("movieshelf://movie/${media.id}".toUri())
+    }
+
+    private fun navigateToMovieDetailsAbout(movieDetails: MovieDetails) {
+        findNavController().navigate(MovieDetailsFragmentDirections.actionMovieAbout(movieDetails))
     }
 }

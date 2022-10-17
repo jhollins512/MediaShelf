@@ -70,10 +70,18 @@ class MovieDetailsViewModel(
             _uiEffect.emit(MovieDetailsEffect.NavigateToMovieDetails(media))
         }
     }
+
+    fun navigateToMovieDetailsAbout() {
+        viewModelScope.launch {
+            movieDetails.value?.let {
+                _uiEffect.emit(MovieDetailsEffect.NavigateToMovieDetailsAbout(it))
+            }
+        }
+    }
 }
 
 sealed class MovieDetailsEffect {
-    object NavigateToMovieDetailsAbout : MovieDetailsEffect()
+    class NavigateToMovieDetailsAbout(val movieDetails: MovieDetails) : MovieDetailsEffect()
     class NavigateToWatchNowLink(val link: String) : MovieDetailsEffect()
     class NavigateToMovieDetails(val media: Media) : MovieDetailsEffect()
 }

@@ -15,4 +15,7 @@
     <string name="label_stream">Stream</string>
     <string name="label_rent">Rent</string>
     <string name="label_buy">Buy</string>
+    <string name="label_genres">Genres</string>
+    <string name="label_cast_and_credits">Cast &amp; Credits</string>
+    <string name="label_details">Details</string>
 </resources>

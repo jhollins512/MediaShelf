@@ -131,6 +131,7 @@
                     android:nestedScrollingEnabled="false"
                     android:paddingStart="@dimen/spacing_normal"
                     android:paddingEnd="@dimen/spacing_normal"
+                    android:visibility="@{tvShowDetailsViewModel.tvShowWatchProviders.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/aboutTvShowMoreText"
                     app:watchProvidersList="@{tvShowDetailsViewModel.tvShowWatchProviders}"
                     app:watchProviders_title="@string/label_where_to_watch" />
