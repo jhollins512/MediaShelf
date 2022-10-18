@@ -57,10 +57,10 @@ class MovieDetailsViewModel(
         }
     }
 
-    fun showHomepage(link: String?) {
+    fun showHomepage() {
         viewModelScope.launch {
-            link?.let {
-                _uiEffect.emit(MovieDetailsEffect.NavigateToWatchNowLink(link))
+            movieDetails.value?.homepage?.let {
+                _uiEffect.emit(MovieDetailsEffect.NavigateToWatchNowLink(it))
             }
         }
     }

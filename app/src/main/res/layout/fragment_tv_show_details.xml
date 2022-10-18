@@ -83,7 +83,7 @@
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:onClick="@{() -> tvShowDetailsViewModel.showHomepage(tvShowDetailsViewModel.tvShowDetails.homepage)}"
+                    android:onClick="@{() -> tvShowDetailsViewModel.showHomepage()}"
                     android:text="@string/btn_homepage"
                     android:visibility="@{tvShowDetailsViewModel.tvShowDetails.homepage.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/posterImage" />
@@ -95,7 +95,7 @@
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:text="@string/label_about_movie"
+                    android:text="@string/label_about_show"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     app:layout_constraintTop_toBottomOf="@id/homepageButton" />
 
@@ -117,6 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
+                    android:onClick="@{() -> tvShowDetailsViewModel.navigateToTVShowDetailsAbout()}"
                     android:text="@string/btn_more"
                     android:textColor="@color/link_blue"
                     app:layout_constraintStart_toStartOf="parent"
@@ -143,8 +144,8 @@
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:visibility="@{tvShowDetailsViewModel.similarTvShows.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/whereToWatchView"
+                    app:mediaRow_title="@string/label_similar_shows"
                     app:mediaList="@{tvShowDetailsViewModel.similarTvShows}"
-                    app:mediaRow_title="@string/label_similar_movies"
                     app:setOnMediaItemClicked="@{(media) -> tvShowDetailsViewModel.navigateToMediaDetails(media)}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

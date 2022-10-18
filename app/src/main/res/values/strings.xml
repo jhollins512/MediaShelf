@@ -12,6 +12,8 @@
     <string name="label_about_movie">About Movie</string>
     <string name="label_similar_movies">Similar Movies</string>
     <string name="label_where_to_watch">Where to Watch</string>
+    <string name="label_about_show">About Show</string>
+    <string name="label_similar_shows">Similar Shows</string>
     <string name="label_stream">Stream</string>
     <string name="label_rent">Rent</string>
     <string name="label_buy">Buy</string>
@@ -24,5 +26,8 @@
     <string name="label_duration">Duration</string>
     <string name="label_original_language">Original Language</string>
     <string name="label_content_rating">Content Rating</string>
+    <string name="format_minutes">%d min</string>
+    <string name="label_first_aired_date">First Aired Date</string>
+    <string name="label_number_of_episodes">Number of Episodes</string>
 
 </resources>

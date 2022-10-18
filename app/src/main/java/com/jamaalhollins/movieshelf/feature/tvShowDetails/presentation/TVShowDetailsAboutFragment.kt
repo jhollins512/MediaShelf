@@ -1,4 +1,4 @@
-package com.jamaalhollins.movieshelf.feature.movieDetails.presentation
+package com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
 import com.jamaalhollins.movieshelf.core.presentation.adapter.GenresAdapter
-import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsAboutBinding
+import com.jamaalhollins.movieshelf.databinding.FragmentTvShowDetailsAboutBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -24,29 +23,28 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class MovieDetailsAboutFragment : Fragment() {
+class TVShowDetailsAboutFragment : Fragment() {
 
-    private var _binding: FragmentMovieDetailsAboutBinding? = null
+    private var _binding: FragmentTvShowDetailsAboutBinding? = null
     private val binding get() = _binding!!
 
-    private val movieDetailsAboutViewModel: MovieDetailsAboutViewModel by viewModel()
-    private val args: MovieDetailsAboutFragmentArgs by navArgs()
+    private val args: TVShowDetailsAboutFragmentArgs by navArgs()
+    private val tvShowDetailsAboutViewModel: TVShowDetailsAboutViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        with(args.movieDetails.id) {
-            movieDetailsAboutViewModel.loadCredits(this)
-            movieDetailsAboutViewModel.loadContentRating(this)
+        with(args.tvShowDetails.id) {
+            tvShowDetailsAboutViewModel.loadCredits(this)
+            tvShowDetailsAboutViewModel.loadContentRating(this)
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMovieDetailsAboutBinding.inflate(inflater, container, false)
+        _binding = FragmentTvShowDetailsAboutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -66,7 +64,7 @@ class MovieDetailsAboutFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        binding.toolbar.title = args.movieDetails.title
+        binding.toolbar.title = args.tvShowDetails.name
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -74,7 +72,7 @@ class MovieDetailsAboutFragment : Fragment() {
     }
 
     private fun setupOverviewSection() {
-        binding.overviewText.text = args.movieDetails.overview
+        binding.overviewText.text = args.tvShowDetails.overview
     }
 
     private fun setupGenreList() {
@@ -86,13 +84,13 @@ class MovieDetailsAboutFragment : Fragment() {
             addItemDecoration(MarginItemDecoration(top = 8.dpToPx(), end = 8.dpToPx()))
         }
 
-        genresAdapter.submitList(args.movieDetails.genres)
+        genresAdapter.submitList(args.tvShowDetails.genres)
     }
 
     private fun setupDetailsSection() {
-        with(args.movieDetails) {
-            binding.durationText.text = getString(R.string.format_minutes, runtime)
-            binding.releasedText.text = releaseDate
+        with(args.tvShowDetails) {
+            binding.episodeCountText.text = numberOfEpisodes.toString()
+            binding.releasedText.text = firstAirDate
             binding.originalLanguageText.text =
                 Locale(originalLanguage).displayLanguage
         }
@@ -101,7 +99,7 @@ class MovieDetailsAboutFragment : Fragment() {
     private fun subscribeUi() {
         lifecycleScope.launch {
             launch {
-                movieDetailsAboutViewModel.uiState.flowWithLifecycle(
+                tvShowDetailsAboutViewModel.uiState.flowWithLifecycle(
                     viewLifecycleOwner.lifecycle,
                     Lifecycle.State.STARTED
                 ).map { it.credits }.distinctUntilChanged().collectLatest {
@@ -112,7 +110,7 @@ class MovieDetailsAboutFragment : Fragment() {
             }
 
             launch {
-                movieDetailsAboutViewModel.uiState.flowWithLifecycle(
+                tvShowDetailsAboutViewModel.uiState.flowWithLifecycle(
                     viewLifecycleOwner.lifecycle,
                     Lifecycle.State.STARTED
                 ).map { it.contentRating }.distinctUntilChanged().collectLatest {

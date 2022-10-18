@@ -139,7 +139,7 @@
                 tools:text="R" />
 
             <TextView
-                android:id="@+id/durationTitle"
+                android:id="@+id/episodeCountTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -151,13 +151,13 @@
                 app:layout_constraintTop_toBottomOf="@id/contentRatingText" />
 
             <TextView
-                android:id="@+id/durationText"
+                android:id="@+id/episodeCountText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 app:layout_constraintEnd_toStartOf="@id/mediaDetailsAboutGuideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/durationTitle"
+                app:layout_constraintTop_toBottomOf="@id/episodeCountTitle"
                 tools:text="131 min" />
 
             <TextView

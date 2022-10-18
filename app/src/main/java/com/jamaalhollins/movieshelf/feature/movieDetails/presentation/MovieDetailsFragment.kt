@@ -146,6 +146,6 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun navigateToMovieDetailsAbout(movieDetails: MovieDetails) {
-        findNavController().navigate(MovieDetailsFragmentDirections.actionMovieAbout(movieDetails))
+        findNavController().navigate(MovieDetailsFragmentDirections.actionMovieDetailsAbout(movieDetails))
     }
 }

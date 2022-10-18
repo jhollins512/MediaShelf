@@ -9,8 +9,8 @@ import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails
 import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowDetailsUseCase
-import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowWatchProvidersForLocaleUseCase
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowRecommendationsUseCase
+import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowWatchProvidersForLocaleUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -57,10 +57,10 @@ class TvShowDetailsViewModel(
         }
     }
 
-    fun showHomepage(link: String?) {
+    fun showHomepage() {
         viewModelScope.launch {
-            link?.let {
-                _uiEffect.emit(TvShowDetailsEffect.NavigateToWatchNowLink(link))
+            tvShowDetails.value?.homepage?.let {
+                _uiEffect.emit(TvShowDetailsEffect.NavigateToWatchNowLink(it))
             }
         }
     }
@@ -70,10 +70,18 @@ class TvShowDetailsViewModel(
             _uiEffect.emit(TvShowDetailsEffect.NavigateToTvShowDetails(media))
         }
     }
+
+    fun navigateToTVShowDetailsAbout() {
+        viewModelScope.launch {
+            tvShowDetails.value?.let {
+                _uiEffect.emit(TvShowDetailsEffect.NavigateToTvShowDetailsAbout(it))
+            }
+        }
+    }
 }
 
 sealed class TvShowDetailsEffect {
-    object NavigateToTvShowDetailsAbout : TvShowDetailsEffect()
+    class NavigateToTvShowDetailsAbout(val tvShowDetails: TVShowDetails) : TvShowDetailsEffect()
     class NavigateToWatchNowLink(val link: String) : TvShowDetailsEffect()
     class NavigateToTvShowDetails(val media: Media) : TvShowDetailsEffect()
 }

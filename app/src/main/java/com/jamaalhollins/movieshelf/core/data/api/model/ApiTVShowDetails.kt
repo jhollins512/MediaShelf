@@ -75,14 +75,17 @@ data class ApiTVShowDetails(
     fun mapToDomain(): TVShowDetails {
         return TVShowDetails(
             id,
-            overview ?: "",
-            posterPath ?: "",
+            overview.orEmpty(),
+            posterPath.orEmpty(),
             backdropPath,
-            firstAirDate ?: "",
+            firstAirDate.orEmpty(),
             genres.map { it.mapToDomain() },
-            homepage ?: "",
-            name ?: "",
-            networks.map { it.mapToDomain() })
+            homepage.orEmpty(),
+            name.orEmpty(),
+            networks.map { it.mapToDomain() },
+            originalLanguage.orEmpty(),
+            numberOfEpisodes
+        )
     }
 }
 
@@ -138,7 +141,7 @@ data class ApiNetwork(
     val originCountry: String?
 ) {
     fun mapToDomain(): Network {
-        return Network(id, logoPath ?: "", name ?: "")
+        return Network(id, logoPath.orEmpty(), name.orEmpty())
     }
 }
 

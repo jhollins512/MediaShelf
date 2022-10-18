@@ -24,7 +24,7 @@
             app:argType="integer" />
 
         <action
-            android:id="@+id/action_movie_about"
+            android:id="@+id/action_movie_details_about"
             app:destination="@id/movieDetailsAboutFragment" />
 
     </fragment>
@@ -52,6 +52,22 @@
         <argument
             android:name="tvShowId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/action_tv_show_details_about"
+            app:destination="@id/TVShowDetailsAboutFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/TVShowDetailsAboutFragment"
+        android:name="com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TVShowDetailsAboutFragment"
+        android:label="TVShowDetailsAboutFragment"
+        tools:layout="@layout/fragment_tv_show_details_about">
+
+        <argument
+            android:name="tvShowDetails"
+            app:argType="com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails" />
 
     </fragment>
 

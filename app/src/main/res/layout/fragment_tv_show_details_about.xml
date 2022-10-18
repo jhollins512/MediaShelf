@@ -23,6 +23,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/tvShowDetailsAboutScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -37,7 +38,7 @@
             android:layout_marginEnd="@dimen/spacing_normal">
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/mediaDetailsAboutGuideline"
+                android:id="@+id/tvShowDetailsAboutGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -102,7 +103,7 @@
                 android:text="@string/label_content_rating"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintEnd_toStartOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailsText" />
 
@@ -111,7 +112,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintEnd_toStartOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintEnd_toStartOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contentRatingTitle"
                 tools:text="R" />
@@ -125,7 +126,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintStart_toEndOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintTop_toBottomOf="@id/detailsText" />
 
             <TextView
@@ -134,31 +135,31 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintStart_toEndOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintTop_toBottomOf="@id/releasedTitle"
-                tools:text="R" />
+                tools:text="2022-10-18" />
 
             <TextView
-                android:id="@+id/durationTitle"
+                android:id="@+id/episodeCountTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:text="@string/label_duration"
+                android:text="@string/label_number_of_episodes"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintEnd_toStartOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contentRatingText" />
 
             <TextView
-                android:id="@+id/durationText"
+                android:id="@+id/episodeCountText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintEnd_toStartOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintEnd_toStartOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/durationTitle"
-                tools:text="131 min" />
+                app:layout_constraintTop_toBottomOf="@id/episodeCountTitle"
+                tools:text="60" />
 
             <TextView
                 android:id="@+id/originalLanguageTitle"
@@ -169,7 +170,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintStart_toEndOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintTop_toBottomOf="@id/contentRatingText" />
 
             <TextView
@@ -178,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/mediaDetailsAboutGuideline"
+                app:layout_constraintStart_toEndOf="@id/tvShowDetailsAboutGuideline"
                 app:layout_constraintTop_toBottomOf="@id/originalLanguageTitle"
                 tools:text="English" />
 

@@ -61,7 +61,7 @@ interface TMDBService {
     @GET("movie/{movie_id}/release_dates")
     suspend fun getMovieReleaseDates(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiMovieReleaseDates
 
-    @GET("movie/{tv_id}/content_ratings")
+    @GET("tv/{tv_id}/content_ratings")
     suspend fun getTVShowContentRatings(@Path(ApiParameters.TV_ID) tvId: Int): ApiTVShowContentRatings
 
 }

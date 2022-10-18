@@ -18,6 +18,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
+import com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
@@ -130,6 +131,10 @@ class TvShowDetailsFragment : Fragment() {
                     )
 
                     is TvShowDetailsEffect.NavigateToTvShowDetails -> navigateToMediaDetails(it.media)
+
+                    is TvShowDetailsEffect.NavigateToTvShowDetailsAbout -> navigateToMovieDetailsAbout(
+                        it.tvShowDetails
+                    )
                     else -> {}
                 }
             }
@@ -138,5 +143,13 @@ class TvShowDetailsFragment : Fragment() {
 
     private fun navigateToMediaDetails(media: Media) {
         findNavController().navigate("movieshelf://tv/${media.id}".toUri())
+    }
+
+    private fun navigateToMovieDetailsAbout(tvShowDetails: TVShowDetails) {
+        findNavController().navigate(
+            TvShowDetailsFragmentDirections.actionTvShowDetailsAbout(
+                tvShowDetails
+            )
+        )
     }
 }

@@ -29,7 +29,7 @@ class MediaRowView @JvmOverloads constructor(
     private fun initView(attrs: AttributeSet?) {
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.MediaRowView)
 
-        setTitle(attributes.getString(R.styleable.MediaRowView_mediaRow_title) ?: "")
+        setTitle(attributes.getString(R.styleable.MediaRowView_mediaRow_title).orEmpty())
 
         attributes.recycle()
     }
