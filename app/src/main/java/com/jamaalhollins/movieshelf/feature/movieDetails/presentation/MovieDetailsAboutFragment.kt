@@ -34,7 +34,10 @@ class MovieDetailsAboutFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        movieDetailsAboutViewModel.loadCredits(args.movieDetails.id)
+        with(args.movieDetails.id) {
+            movieDetailsAboutViewModel.loadCredits(this)
+            movieDetailsAboutViewModel.loadContentRating(this)
+        }
     }
 
     override fun onCreateView(
@@ -104,6 +107,15 @@ class MovieDetailsAboutFragment : Fragment() {
                     binding.movieAboutLayout.starringText.text =
                         it?.cast?.take(10)?.joinToString { it.name }
                     binding.movieAboutLayout.directorsText.text = it?.getDirectorName()
+                }
+            }
+
+            launch {
+                movieDetailsAboutViewModel.uiState.flowWithLifecycle(
+                    viewLifecycleOwner.lifecycle,
+                    Lifecycle.State.STARTED
+                ).map { it.contentRating }.distinctUntilChanged().collectLatest {
+                    binding.movieAboutLayout.contentRatingText.text = it
                 }
             }
         }

@@ -2,10 +2,8 @@ package com.jamaalhollins.movieshelf.core.di
 
 import com.jamaalhollins.movieshelf.core.domain.FormatToWatchProviderWithViewingOptionsUseCase
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
-import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieCreditsUseCase
-import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieDetailsUseCase
-import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieRecommendationsUseCase
-import com.jamaalhollins.movieshelf.feature.movieDetails.domain.GetMovieWatchProvidersForLocaleUseCase
+import com.jamaalhollins.movieshelf.feature.movieDetails.domain.*
+import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowCreditsUseCase
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowDetailsUseCase
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowRecommendationsUseCase
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowWatchProvidersForLocaleUseCase
@@ -26,4 +24,6 @@ val useCaseModule = module {
     factory { GetTVShowWatchProvidersForLocaleUseCase(get()) }
     factory { FormatToWatchProviderWithViewingOptionsUseCase() }
     factory { GetMovieCreditsUseCase(get()) }
+    factory { GetMovieContentRatingUseCase(get()) }
+    factory { GetTVShowCreditsUseCase(get()) }
 }

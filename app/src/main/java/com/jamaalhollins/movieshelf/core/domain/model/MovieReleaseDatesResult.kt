@@ -4,5 +4,5 @@ import com.jamaalhollins.movieshelf.core.data.api.model.ApiMovieReleaseDate
 
 data class MovieReleaseDatesResult(
     val iso31661: String,
-    val releaseDates: List<ApiMovieReleaseDate>
+    val releaseDates: List<MovieReleaseDate>
 )

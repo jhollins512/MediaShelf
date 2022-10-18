@@ -74,4 +74,14 @@ class MediaRepository(private val tmdbService: TMDBService) {
         val response = tmdbService.getTVShowCredits(tvId)
         return response.mapToDomain()
     }
+
+    suspend fun getMovieReleaseDates(movieId: Int): MovieReleaseDates {
+        val response = tmdbService.getMovieReleaseDates(movieId)
+        return response.mapToDomain()
+    }
+
+    suspend fun getTVShowContentRatings(tvId: Int): TVShowContentRatings {
+        val response = tmdbService.getTVShowContentRatings(tvId)
+        return response.mapToDomain()
+    }
 }
