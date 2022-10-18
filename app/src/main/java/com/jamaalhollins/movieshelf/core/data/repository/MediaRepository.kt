@@ -1,10 +1,7 @@
 package com.jamaalhollins.movieshelf.core.data.repository
 
 import com.jamaalhollins.movieshelf.core.data.api.TMDBService
-import com.jamaalhollins.movieshelf.core.domain.model.MovieDetails
-import com.jamaalhollins.movieshelf.core.domain.model.PaginatedMedia
-import com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails
-import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderResults
+import com.jamaalhollins.movieshelf.core.domain.model.*
 
 class MediaRepository(private val tmdbService: TMDBService) {
 
@@ -59,12 +56,22 @@ class MediaRepository(private val tmdbService: TMDBService) {
     }
 
     suspend fun getTvShowRecommendations(tvId: Int): PaginatedMedia {
-        val response = tmdbService.getTvShowRecommendations(tvId)
+        val response = tmdbService.getTVShowRecommendations(tvId)
         return response.mapToDomain()
     }
 
     suspend fun getTvShowWatchProviders(tvId: Int): WatchProviderResults {
-        val response = tmdbService.getTvShowWatchProviders(tvId)
+        val response = tmdbService.getTVShowWatchProviders(tvId)
+        return response.mapToDomain()
+    }
+
+    suspend fun getMovieCredits(movieId: Int): Credits {
+        val response = tmdbService.getMovieCredits(movieId)
+        return response.mapToDomain()
+    }
+
+    suspend fun getTvShowCredits(tvId: Int): Credits {
+        val response = tmdbService.getTVShowCredits(tvId)
         return response.mapToDomain()
     }
 }

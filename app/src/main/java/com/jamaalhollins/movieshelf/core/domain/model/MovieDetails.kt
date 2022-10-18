@@ -11,7 +11,9 @@ data class MovieDetails(
     val posterPath: String?,
     val genres: List<Genre>,
     val homepage: String,
-    val releaseDate: String
+    val releaseDate: String,
+    val runtime: Int,
+    val originalLanguage: String
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -22,9 +24,10 @@ data class MovieDetails(
         parcel.readString().orEmpty(),
         parcel.createTypedArrayList(Genre).orEmpty(),
         parcel.readString().orEmpty(),
+        parcel.readString().orEmpty(),
+        parcel.readInt(),
         parcel.readString().orEmpty()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -35,6 +38,8 @@ data class MovieDetails(
         parcel.writeTypedList(genres)
         parcel.writeString(homepage)
         parcel.writeString(releaseDate)
+        parcel.writeInt(runtime)
+        parcel.writeString(originalLanguage)
     }
 
     override fun describeContents(): Int {

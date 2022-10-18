@@ -18,4 +18,11 @@
     <string name="label_genres">Genres</string>
     <string name="label_cast_and_credits">Cast &amp; Credits</string>
     <string name="label_details">Details</string>
+    <string name="label_starring">Starring</string>
+    <string name="label_directors">Directors</string>
+    <string name="label_released">Released</string>
+    <string name="label_duration">Duration</string>
+    <string name="label_original_language">Original Language</string>
+    <string name="label_content_rating">Content Rating</string>
+
 </resources>

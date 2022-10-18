@@ -44,11 +44,24 @@ interface TMDBService {
     suspend fun getMovieRecommendations(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiPaginatedMedia<ApiMedia>
 
     @GET("tv/{tv_id}/recommendations")
-    suspend fun getTvShowRecommendations(@Path(ApiParameters.TV_ID) tvId: Int): ApiPaginatedMedia<ApiMedia>
+    suspend fun getTVShowRecommendations(@Path(ApiParameters.TV_ID) tvId: Int): ApiPaginatedMedia<ApiMedia>
 
     @GET("movie/{movie_id}/watch/providers")
     suspend fun getMovieWatchProviders(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiWatchProvidersResults
 
     @GET("tv/{tv_id}/watch/providers")
-    suspend fun getTvShowWatchProviders(@Path(ApiParameters.TV_ID) tvId: Int): ApiWatchProvidersResults
+    suspend fun getTVShowWatchProviders(@Path(ApiParameters.TV_ID) tvId: Int): ApiWatchProvidersResults
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCredits(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiCredits
+
+    @GET("movie/{tv_id}/credits")
+    suspend fun getTVShowCredits(@Path(ApiParameters.TV_ID) tvId: Int): ApiCredits
+
+    @GET("movie/{movie_id}/release_dates")
+    suspend fun getMovieReleaseDates(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiMovieReleaseDates
+
+    @GET("movie/{tv_id}/content_ratings")
+    suspend fun getTVShowContentRatings(@Path(ApiParameters.TV_ID) tvId: Int): ApiTVShowContentRatings
+
 }

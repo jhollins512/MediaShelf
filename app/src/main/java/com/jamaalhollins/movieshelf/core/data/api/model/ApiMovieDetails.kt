@@ -66,7 +66,9 @@ data class ApiMovieDetails(
             posterPath,
             genres.map { it.mapToDomain() },
             homepage,
-            releaseDate
+            releaseDate,
+            runtime,
+            originalLanguage
         )
     }
 }

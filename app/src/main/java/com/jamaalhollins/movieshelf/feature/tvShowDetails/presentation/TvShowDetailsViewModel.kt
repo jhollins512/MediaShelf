@@ -10,7 +10,7 @@ import com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails
 import com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowDetailsUseCase
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowWatchProvidersForLocaleUseCase
-import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTvShowRecommendationsUseCase
+import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.GetTVShowRecommendationsUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import java.util.*
 
 class TvShowDetailsViewModel(
     private val getTvShowDetails: GetTVShowDetailsUseCase,
-    private val getTvShowRecommendations: GetTvShowRecommendationsUseCase,
+    private val getTvShowRecommendations: GetTVShowRecommendationsUseCase,
     private val getTvShowWatchProvidersForLocale: GetTVShowWatchProvidersForLocaleUseCase,
     private val formatWatchProvidersWithType: FormatToWatchProviderWithViewingOptionsUseCase
 ) : ViewModel() {
