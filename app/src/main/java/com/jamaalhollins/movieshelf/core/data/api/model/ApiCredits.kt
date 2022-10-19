@@ -26,7 +26,7 @@ data class ApiCast(
     @Json(name = "adult")
     val adult: Boolean,
     @Json(name = "cast_id")
-    val castId: Int,
+    val castId: Int? = null,
     @Json(name = "character")
     val character: String?,
     @Json(name = "credit_id")

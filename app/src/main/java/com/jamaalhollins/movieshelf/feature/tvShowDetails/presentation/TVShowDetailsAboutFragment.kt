@@ -105,7 +105,6 @@ class TVShowDetailsAboutFragment : Fragment() {
                 ).map { it.credits }.distinctUntilChanged().collectLatest {
                     binding.starringText.text =
                         it?.cast?.take(10)?.joinToString { it.name }
-                    binding.directorsText.text = it?.getDirectorName()
                 }
             }
 

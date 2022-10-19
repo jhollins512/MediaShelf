@@ -55,7 +55,7 @@ interface TMDBService {
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(@Path(ApiParameters.MOVIE_ID) movieId: Int): ApiCredits
 
-    @GET("movie/{tv_id}/credits")
+    @GET("tv/{tv_id}/credits")
     suspend fun getTVShowCredits(@Path(ApiParameters.TV_ID) tvId: Int): ApiCredits
 
     @GET("movie/{movie_id}/release_dates")
