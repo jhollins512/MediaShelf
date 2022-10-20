@@ -11,4 +11,5 @@ object ApiParameters {
     const val MEDIA_TYPE = "media_type"
     const val MOVIE_ID = "movie_id"
     const val TV_ID = "tv_id"
+    const val QUERY = "query"
 }

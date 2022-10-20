@@ -64,4 +64,6 @@ interface TMDBService {
     @GET("tv/{tv_id}/content_ratings")
     suspend fun getTVShowContentRatings(@Path(ApiParameters.TV_ID) tvId: Int): ApiTVShowContentRatings
 
+    @GET("search/multi")
+    suspend fun searchMulti(@Query(ApiParameters.QUERY) query: String): ApiPaginatedMedia<ApiMedia>
 }

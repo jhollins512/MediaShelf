@@ -6,6 +6,7 @@ import com.jamaalhollins.movieshelf.core.data.api.TMDBService
 import com.jamaalhollins.movieshelf.core.data.api.interceptors.AuthInterceptor
 import com.jamaalhollins.movieshelf.core.data.api.model.ApiMedia
 import com.jamaalhollins.movieshelf.core.data.api.model.ApiMovie
+import com.jamaalhollins.movieshelf.core.data.api.model.ApiPerson
 import com.jamaalhollins.movieshelf.core.data.api.model.ApiTVShow
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
@@ -37,6 +38,7 @@ private fun provideMoshi(): Moshi {
     val factory = PolymorphicJsonAdapterFactory.of(ApiMedia::class.java, "media_type")
         .withSubtype(ApiMovie::class.java, "movie")
         .withSubtype(ApiTVShow::class.java, "tv")
+        .withSubtype(ApiPerson::class.java, "person")
 
     return Moshi.Builder().add(factory).add(KotlinJsonAdapterFactory())
         .build()
