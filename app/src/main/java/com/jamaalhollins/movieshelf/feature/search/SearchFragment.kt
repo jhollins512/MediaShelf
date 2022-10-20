@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.jamaalhollins.movieshelf.core.utils.showSoftKeyboard
@@ -47,7 +48,7 @@ class SearchFragment : Fragment() {
         binding.mediaSearchView.post {
             showSoftKeyboard(
                 requireActivity(),
-                binding.mediaSearchView
+                binding.mediaSearchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
             )
         }
     }
