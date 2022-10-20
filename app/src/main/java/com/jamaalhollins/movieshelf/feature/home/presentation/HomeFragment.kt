@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
@@ -48,8 +48,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
+        binding.toolbar.setOnMenuItemClickListener {
+
+            if (it.itemId == R.id.action_search) {
+                findNavController().navigate("movieshelf://search".toUri())
+            } else if (it.itemId == R.id.action_about) {
+                findNavController().navigate(HomeFragmentDirections.actionAbout())
+            }
+
+            return@setOnMenuItemClickListener true
+        }
     }
 
     private fun observeUiEffects() {

@@ -9,7 +9,13 @@
         android:id="@+id/homeFragment"
         android:name="com.jamaalhollins.movieshelf.feature.home.presentation.HomeFragment"
         android:label="Home Fragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_about"
+            app:destination="@id/aboutFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -68,6 +74,22 @@
         <argument
             android:name="tvShowDetails"
             app:argType="com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.jamaalhollins.movieshelf.feature.home.presentation.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.jamaalhollins.movieshelf.feature.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+
+        <deepLink app:uri="movieshelf://search" />
 
     </fragment>
 

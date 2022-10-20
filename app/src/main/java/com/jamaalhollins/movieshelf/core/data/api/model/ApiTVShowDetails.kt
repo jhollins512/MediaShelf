@@ -30,7 +30,7 @@ data class ApiTVShowDetails(
     @Json(name = "last_air_date")
     val lastAirDate: String?,
     @Json(name = "last_episode_to_air")
-    val lastEpisodeToAir: ApiLastEpisodeToAir,
+    val lastEpisodeToAir: ApiLastEpisodeToAir?,
     @Json(name = "name")
     val name: String?,
     @Json(name = "networks")

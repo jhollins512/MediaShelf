@@ -18,4 +18,9 @@
         <item name="cornerFamily">rounded</item>
     </style>
 
+    <style name="ThemeOverlay.MovieShelf.SearchView" parent="">
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="android:textColorHint">#808080</item>
+    </style>
+
 </resources>

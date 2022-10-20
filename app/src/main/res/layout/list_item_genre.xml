@@ -9,4 +9,5 @@
     android:paddingTop="@dimen/spacing_xsmall"
     android:paddingEnd="@dimen/spacing_normal"
     android:paddingBottom="@dimen/spacing_xsmall"
-    android:textAllCaps="true" />
+    android:textAllCaps="true"
+    android:textColor="?attr/colorOnSecondary" />

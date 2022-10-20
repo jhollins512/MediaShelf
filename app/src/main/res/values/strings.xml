@@ -29,5 +29,7 @@
     <string name="format_minutes">%d min</string>
     <string name="label_first_aired_date">First Aired Date</string>
     <string name="label_number_of_episodes">Number of Episodes</string>
-
+    <string name="search">Search</string>
+    <string name="about">About</string>
+    <string name="search_hint">Search movie or tv show</string>
 </resources>
