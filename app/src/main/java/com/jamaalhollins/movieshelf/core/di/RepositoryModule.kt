@@ -1,8 +1,8 @@
 package com.jamaalhollins.movieshelf.core.di
 
-import com.jamaalhollins.movieshelf.core.data.repository.MediaRepository
+import com.jamaalhollins.movieshelf.core.data.repository.TMDBMediaRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { MediaRepository(get()) }
+    single { TMDBMediaRepository(get()) }
 }

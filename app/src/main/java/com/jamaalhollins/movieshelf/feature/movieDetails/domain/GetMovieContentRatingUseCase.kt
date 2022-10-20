@@ -1,6 +1,6 @@
 package com.jamaalhollins.movieshelf.feature.movieDetails.domain
 
-import com.jamaalhollins.movieshelf.core.data.repository.MediaRepository
+import com.jamaalhollins.movieshelf.core.domain.repository.MediaRepository
 import java.util.*
 
 class GetMovieContentRatingUseCase(private val mediaRepository: MediaRepository) {
