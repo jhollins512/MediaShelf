@@ -3,6 +3,7 @@ package com.jamaalhollins.movieshelf.core.di
 import com.jamaalhollins.movieshelf.core.domain.FormatToWatchProviderWithViewingOptionsUseCase
 import com.jamaalhollins.movieshelf.feature.home.domain.usecases.*
 import com.jamaalhollins.movieshelf.feature.movieDetails.domain.*
+import com.jamaalhollins.movieshelf.feature.search.domain.SearchAllMediaUseCase
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.domain.*
 import org.koin.dsl.module
 
@@ -24,4 +25,5 @@ val useCaseModule = module {
     factory { GetMovieContentRatingUseCase(get()) }
     factory { GetTVShowCreditsUseCase(get()) }
     factory { GetTVShowContentRatingUseCase(get()) }
+    factory { SearchAllMediaUseCase(get()) }
 }

@@ -65,5 +65,8 @@ interface TMDBService {
     suspend fun getTVShowContentRatings(@Path(ApiParameters.TV_ID) tvId: Int): ApiTVShowContentRatings
 
     @GET("search/multi")
-    suspend fun searchAllMedia(@Query(ApiParameters.QUERY) query: String): ApiPaginatedMedia<ApiMedia>
+    suspend fun searchAllMedia(
+        @Query(ApiParameters.QUERY) query: String,
+        @Query(ApiParameters.PAGE) page: Int
+    ): ApiPaginatedMedia<ApiMedia>
 }

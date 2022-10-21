@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".feature.search.SearchFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,10 +25,10 @@
                 android:id="@+id/mediaSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:theme="@style/ThemeOverlay.MovieShelf.SearchView"
                 app:iconifiedByDefault="false"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
                 app:queryHint="@string/search_hint"
                 app:searchIcon="@null" />
 
@@ -35,4 +36,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchMediaList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        tools:listitem="@layout/list_item_media" />
+
+</LinearLayout>

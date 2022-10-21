@@ -9,7 +9,7 @@ import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
-import com.jamaalhollins.movieshelf.core.presentation.adapter.MediaAdapter
+import com.jamaalhollins.movieshelf.core.presentation.adapter.media.MediaListAdapter
 import com.jamaalhollins.movieshelf.databinding.ViewHomeMediaRowBinding
 
 class MediaRowView @JvmOverloads constructor(
@@ -41,14 +41,14 @@ class MediaRowView @JvmOverloads constructor(
 
     private fun setupMediaList() {
         binding.mediaList.apply {
-            adapter = MediaAdapter { onMediaItemClickedListener?.onMediaItemClicked(it) }
+            adapter = MediaListAdapter { onMediaItemClickedListener?.onMediaItemClicked(it) }
             addItemDecoration(MarginItemDecoration(end = 8.dpToPx()))
         }
     }
 
     fun setRowMediaList(media: List<Media>) {
-        val mediaAdapter = binding.mediaList.adapter as MediaAdapter
-        mediaAdapter.submitList(media)
+        val mediaListAdapter = binding.mediaList.adapter as MediaListAdapter
+        mediaListAdapter.submitList(media)
     }
 
     fun setListener(listener: OnMediaItemClickedListener) {

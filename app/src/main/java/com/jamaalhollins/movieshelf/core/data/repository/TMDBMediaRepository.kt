@@ -1,8 +1,13 @@
 package com.jamaalhollins.movieshelf.core.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.jamaalhollins.movieshelf.core.data.api.TMDBService
-import com.jamaalhollins.movieshelf.core.domain.repository.MediaRepository
+import com.jamaalhollins.movieshelf.core.data.repository.pagingSource.SearchAllMediaPagingSource
 import com.jamaalhollins.movieshelf.core.domain.model.*
+import com.jamaalhollins.movieshelf.core.domain.repository.MediaRepository
+import kotlinx.coroutines.flow.Flow
 
 class TMDBMediaRepository(private val tmdbService: TMDBService) : MediaRepository {
 
@@ -86,7 +91,9 @@ class TMDBMediaRepository(private val tmdbService: TMDBService) : MediaRepositor
         return response.mapToDomain()
     }
 
-    override suspend fun searchAllMedia(query: String) {
-
+    override suspend fun searchAllMedia(query: String): Flow<PagingData<Media>> {
+        return Pager(PagingConfig(10)) {
+            SearchAllMediaPagingSource(tmdbService, query)
+        }.flow
     }
 }

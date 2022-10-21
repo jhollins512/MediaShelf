@@ -1,6 +1,8 @@
 package com.jamaalhollins.movieshelf.core.domain.repository
 
+import androidx.paging.PagingData
 import com.jamaalhollins.movieshelf.core.domain.model.*
+import kotlinx.coroutines.flow.Flow
 
 interface MediaRepository {
     suspend fun getDailyTrendingMovies(page: Int = 1): PaginatedMedia
@@ -35,5 +37,5 @@ interface MediaRepository {
 
     suspend fun getTVShowContentRatings(tvId: Int): TVShowContentRatings
 
-    suspend fun searchAllMedia(query: String)
+    suspend fun searchAllMedia(query: String): Flow<PagingData<Media>>
 }

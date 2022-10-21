@@ -3,6 +3,7 @@ package com.jamaalhollins.movieshelf.core.di
 import com.jamaalhollins.movieshelf.feature.home.presentation.HomeViewModel
 import com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsAboutViewModel
 import com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsViewModel
+import com.jamaalhollins.movieshelf.feature.search.SearchViewModel
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TVShowDetailsAboutViewModel
 import com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TvShowDetailsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,4 +15,5 @@ val viewModelModule = module {
     viewModel { TvShowDetailsViewModel(get(), get(), get(), get()) }
     viewModel { MovieDetailsAboutViewModel(get(), get()) }
     viewModel { TVShowDetailsAboutViewModel(get(), get()) }
+    viewModel { SearchViewModel(get()) }
 }

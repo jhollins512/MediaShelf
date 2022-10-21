@@ -10,7 +10,6 @@ data class ApiMovie(
     @Json(name = "original_title") val originalTitle: String,
     @Json(name = "release_date") val releaseDate: String,
     val video: Boolean,
-    @Json(name = "origin_country") val originCountry: List<String>,
     @Json(name = "backdrop_path") var backdropPath: String?,
     @Json(name = "genre_ids") var genreIds: List<Int>,
     @Json(name = "original_language") var originalLanguage: String?,
