@@ -37,7 +37,7 @@ data class ApiMovieReleaseDate(
     @Json(name = "iso_639_1")
     val iso6391: String?,
     @Json(name = "note")
-    val note: String,
+    val note: String?,
     @Json(name = "release_date")
     val releaseDate: String,
     @Json(name = "type")

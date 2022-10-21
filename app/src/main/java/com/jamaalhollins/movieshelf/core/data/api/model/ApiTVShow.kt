@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
 data class ApiTVShow(
     val name: String,
     @Json(name = "original_name") val originalName: String,
-    @Json(name = "first_air_date") val firstAirDate: String,
+    @Json(name = "first_air_date") val firstAirDate: String?,
     @Json(name = "origin_country") val originCountry: List<String>,
     @Json(name = "backdrop_path") var backdropPath: String?,
     @Json(name = "genre_ids") var genreIds: List<Int> = emptyList(),

@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
+import com.jamaalhollins.movieshelf.core.utils.hideSoftKeyboard
 import com.jamaalhollins.movieshelf.core.utils.showSoftKeyboard
 import com.jamaalhollins.movieshelf.databinding.FragmentSearchBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -41,34 +42,8 @@ class SearchFragment : Fragment() {
 
         setupToolbar()
         setupSearchView()
+        setupMediaList()
         subscribeUi()
-        val mediaAdapter = SearchMediaPagingAdapter {
-
-        }
-
-        binding.searchMediaList.apply {
-            adapter = SearchMediaPagingAdapter {
-                navigateToMedia(it)
-            }
-
-            addItemDecoration(MarginItemDecoration(8.dpToPx(), 8.dpToPx(), 8.dpToPx(), 8.dpToPx()))
-        }
-
-        binding.mediaSearchView.setOnQueryTextListener(object : OnQueryTextListener,
-            SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    searchViewModel.searchMedia(it)
-                }
-
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
-
-        })
     }
 
     override fun onDestroyView() {
@@ -83,16 +58,45 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupSearchView() {
+        val searchViewEditText =
+            binding.mediaSearchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+
         binding.mediaSearchView.post {
             showSoftKeyboard(
                 requireActivity(),
-                binding.mediaSearchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+                searchViewEditText
             )
+        }
+
+        binding.mediaSearchView.setOnQueryTextListener(object : OnQueryTextListener,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    searchViewModel.searchMedia(it)
+                    hideSoftKeyboard(requireActivity(), searchViewEditText)
+                }
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
+    }
+
+    private fun setupMediaList() {
+        binding.searchMediaList.apply {
+            adapter = SearchMediaPagingAdapter {
+                navigateToMedia(it)
+            }
+
+            addItemDecoration(MarginItemDecoration(8.dpToPx(), 8.dpToPx(), 8.dpToPx(), 8.dpToPx()))
         }
     }
 
     private fun subscribeUi() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchResults.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
             ).collectLatest {

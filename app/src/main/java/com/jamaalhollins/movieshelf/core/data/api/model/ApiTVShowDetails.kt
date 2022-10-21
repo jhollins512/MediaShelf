@@ -160,13 +160,13 @@ data class ApiNextEpisodeToAir(
     @Json(name = "production_code")
     val productionCode: String?,
     @Json(name = "runtime")
-    val runtime: Any,
+    val runtime: Int?,
     @Json(name = "season_number")
     val seasonNumber: Int,
     @Json(name = "show_id")
     val showId: Int,
     @Json(name = "still_path")
-    val stillPath: Any,
+    val stillPath: String?,
     @Json(name = "vote_average")
     val voteAverage: Double,
     @Json(name = "vote_count")

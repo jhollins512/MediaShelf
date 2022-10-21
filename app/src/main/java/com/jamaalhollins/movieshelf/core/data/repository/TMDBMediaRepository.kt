@@ -91,8 +91,8 @@ class TMDBMediaRepository(private val tmdbService: TMDBService) : MediaRepositor
         return response.mapToDomain()
     }
 
-    override suspend fun searchAllMedia(query: String): Flow<PagingData<Media>> {
-        return Pager(PagingConfig(10)) {
+    override fun searchAllMedia(query: String): Flow<PagingData<Media>> {
+        return Pager(PagingConfig(20)) {
             SearchAllMediaPagingSource(tmdbService, query)
         }.flow
     }

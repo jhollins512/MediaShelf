@@ -37,5 +37,5 @@ interface MediaRepository {
 
     suspend fun getTVShowContentRatings(tvId: Int): TVShowContentRatings
 
-    suspend fun searchAllMedia(query: String): Flow<PagingData<Media>>
+    fun searchAllMedia(query: String): Flow<PagingData<Media>>
 }

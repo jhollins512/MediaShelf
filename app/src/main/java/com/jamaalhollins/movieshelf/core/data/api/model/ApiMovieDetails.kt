@@ -9,7 +9,7 @@ data class ApiMovieDetails(
     @Json(name = "adult")
     val adult: Boolean,
     @Json(name = "backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @Json(name = "belongs_to_collection")
     val belongsToCollection: Any?,
     @Json(name = "budget")
@@ -17,21 +17,21 @@ data class ApiMovieDetails(
     @Json(name = "genres")
     val genres: List<ApiGenre>,
     @Json(name = "homepage")
-    val homepage: String,
+    val homepage: String?,
     @Json(name = "id")
     val id: Int,
     @Json(name = "imdb_id")
-    val imdbId: String,
+    val imdbId: String?,
     @Json(name = "original_language")
     val originalLanguage: String,
     @Json(name = "original_title")
     val originalTitle: String,
     @Json(name = "overview")
-    val overview: String,
+    val overview: String?,
     @Json(name = "popularity")
     val popularity: Double,
     @Json(name = "poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @Json(name = "production_companies")
     val productionCompanies: List<ApiProductionCompany>,
     @Json(name = "production_countries")
@@ -41,13 +41,13 @@ data class ApiMovieDetails(
     @Json(name = "revenue")
     val revenue: Int,
     @Json(name = "runtime")
-    val runtime: Int,
+    val runtime: Int?,
     @Json(name = "spoken_languages")
     val spokenLanguages: List<ApiSpokenLanguage>,
     @Json(name = "status")
     val status: String,
     @Json(name = "tagline")
-    val tagline: String,
+    val tagline: String?,
     @Json(name = "title")
     val title: String,
     @Json(name = "video")
@@ -61,13 +61,13 @@ data class ApiMovieDetails(
         return MovieDetails(
             id,
             title,
-            overview,
+            overview.orEmpty(),
             backdropPath,
             posterPath,
             genres.map { it.mapToDomain() },
-            homepage,
+            homepage.orEmpty(),
             releaseDate,
-            runtime,
+            runtime ?: 0,
             originalLanguage
         )
     }

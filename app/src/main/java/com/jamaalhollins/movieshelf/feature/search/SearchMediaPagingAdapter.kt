@@ -18,10 +18,6 @@ class SearchMediaPagingAdapter(private val listener: OnMediaItemClickedListener)
         return SearchMediaViewHolder(binding, listener)
     }
 
-    override fun onBindViewHolder(holder: SearchMediaViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
 
     class SearchMediaViewHolder(
         private val binding: ListItemSearchMediaBinding,
@@ -36,5 +32,9 @@ class SearchMediaPagingAdapter(private val listener: OnMediaItemClickedListener)
                 binding.executePendingBindings()
             }
         }
+    }
+
+    override fun onBindViewHolder(holder: SearchMediaViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 }
