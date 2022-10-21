@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.SearchView.OnQueryTextListener
 import androidx.appcompat.widget.SearchView
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -15,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.extensions.dpToPx
+import com.jamaalhollins.movieshelf.core.extensions.navigate
+import com.jamaalhollins.movieshelf.core.navigation.NavigationRouter
 import com.jamaalhollins.movieshelf.core.presentation.MarginItemDecoration
 import com.jamaalhollins.movieshelf.core.utils.hideSoftKeyboard
 import com.jamaalhollins.movieshelf.core.utils.showSoftKeyboard
@@ -106,6 +107,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun navigateToMedia(media: Media) {
-        findNavController().navigate("movieshelf://${media.mediaType}/${media.id}".toUri())
+        findNavController().navigate(NavigationRouter.MediaRouter(media))
     }
 }

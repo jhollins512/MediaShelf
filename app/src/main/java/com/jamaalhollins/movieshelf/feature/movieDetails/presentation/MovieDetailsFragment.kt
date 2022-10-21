@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -20,7 +19,9 @@ import com.google.android.material.elevation.ElevationOverlayProvider
 import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
 import com.jamaalhollins.movieshelf.core.domain.model.MovieDetails
+import com.jamaalhollins.movieshelf.core.extensions.navigate
 import com.jamaalhollins.movieshelf.core.extensions.navigateToExternalUrl
+import com.jamaalhollins.movieshelf.core.navigation.NavigationRouter
 import com.jamaalhollins.movieshelf.core.utils.getScreenWidth
 import com.jamaalhollins.movieshelf.core.utils.isDarkModeEnabled
 import com.jamaalhollins.movieshelf.databinding.FragmentMovieDetailsBinding
@@ -142,10 +143,14 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun navigateToMediaDetails(media: Media) {
-        findNavController().navigate("movieshelf://movie/${media.id}".toUri())
+        findNavController().navigate(NavigationRouter.MediaRouter(media))
     }
 
     private fun navigateToMovieDetailsAbout(movieDetails: MovieDetails) {
-        findNavController().navigate(MovieDetailsFragmentDirections.actionMovieDetailsAbout(movieDetails))
+        findNavController().navigate(
+            MovieDetailsFragmentDirections.actionMovieDetailsAbout(
+                movieDetails
+            )
+        )
     }
 }

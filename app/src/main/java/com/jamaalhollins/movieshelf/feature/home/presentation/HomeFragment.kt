@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.jamaalhollins.movieshelf.R
 import com.jamaalhollins.movieshelf.core.domain.model.Media
+import com.jamaalhollins.movieshelf.core.extensions.navigate
+import com.jamaalhollins.movieshelf.core.navigation.NavigationRouter
 import com.jamaalhollins.movieshelf.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -74,6 +76,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToMediaDetails(media: Media) {
-        findNavController().navigate("movieshelf://${media.mediaType}/${media.id}".toUri())
+        findNavController().navigate(NavigationRouter.MediaRouter(media))
     }
 }
