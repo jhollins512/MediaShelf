@@ -21,6 +21,7 @@ import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.domain.model.MovieDetails
 import com.mediashelf.android.core.extensions.navigate
 import com.mediashelf.android.core.extensions.navigateToExternalUrl
+import com.mediashelf.android.core.extensions.navigateToExternalUrlWithCustomTabs
 import com.mediashelf.android.core.navigation.NavigationRouter
 import com.mediashelf.android.core.utils.getScreenWidth
 import com.mediashelf.android.core.utils.isDarkModeEnabled
@@ -137,9 +138,20 @@ class MovieDetailsFragment : Fragment() {
                     is MovieDetailsEffect.NavigateToMovieDetailsAbout -> navigateToMovieDetailsAbout(
                         it.movieDetails
                     )
+                    is MovieDetailsEffect.NavigateWatchProviderAttribution -> navigateToWatchProviderAttribution(
+                        it.movieDetails
+                    )
                 }
             }
         }
+    }
+
+    private fun navigateToWatchProviderAttribution(movieDetails: MovieDetails) {
+        getString(
+            R.string.tmdb_movie_base_url,
+            movieDetails.id,
+            movieDetails.title.replace(" ", "-")
+        ).navigateToExternalUrlWithCustomTabs(requireContext())
     }
 
     private fun navigateToMediaDetails(media: Media) {

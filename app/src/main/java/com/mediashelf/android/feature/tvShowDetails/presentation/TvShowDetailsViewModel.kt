@@ -78,10 +78,19 @@ class TvShowDetailsViewModel(
             }
         }
     }
+
+    fun navigateToWatchProviderAttribution() {
+        viewModelScope.launch {
+            tvShowDetails.value?.let {
+                _uiEffect.emit(TvShowDetailsEffect.NavigateWatchProviderAttribution(it))
+            }
+        }
+    }
 }
 
 sealed class TvShowDetailsEffect {
     class NavigateToTvShowDetailsAbout(val tvShowDetails: TVShowDetails) : TvShowDetailsEffect()
     class NavigateToWatchNowLink(val link: String) : TvShowDetailsEffect()
     class NavigateToTvShowDetails(val media: Media) : TvShowDetailsEffect()
+    class NavigateWatchProviderAttribution(val tvShowDetails: TVShowDetails) : TvShowDetailsEffect()
 }

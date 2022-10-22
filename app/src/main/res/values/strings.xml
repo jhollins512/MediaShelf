@@ -35,5 +35,9 @@
     <string name="label_privacy_policy">Privacy Policy</string>
     <string name="label_acknowledgements">Acknowledgements</string>
     <string name="label_version">Version %s</string>
+    <string name="visit_justwatch">Data provided by <a href="#">JustWatch</a></string>
+    <string name="tmdb_movie_base_url">https://www.themoviedb.org/movie/%d-%s</string>
+    <string name="tmdb_tv_show_base_url">https://www.themoviedb.org/tv/%d-%s</string>
     <string name="privacy_policy_link">https://sites.google.com/view/mediashelf/privacy</string>
+    <string name="acknowledgements_link">https://sites.google.com/view/mediashelf/acknowledgements</string>
 </resources>

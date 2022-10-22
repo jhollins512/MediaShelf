@@ -1,16 +1,16 @@
 package com.mediashelf.android.feature.home.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mediashelf.android.BuildConfig
 import com.mediashelf.android.R
+import com.mediashelf.android.core.extensions.navigateToExternalUrlWithCustomTabs
 import com.mediashelf.android.databinding.FragmentAboutBinding
+
 
 class AboutFragment : Fragment() {
 
@@ -46,15 +46,16 @@ class AboutFragment : Fragment() {
 
     private fun setupButtons() {
         binding.privacyPolicyButton.setOnClickListener {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    getString(R.string.privacy_policy_link).toUri()
-                )
+            getString(R.string.privacy_policy_link).navigateToExternalUrlWithCustomTabs(
+                requireContext()
             )
         }
 
-        binding.acknowledgementsButton.setOnClickListener { }
+        binding.acknowledgementsButton.setOnClickListener {
+            getString(R.string.acknowledgements_link).navigateToExternalUrlWithCustomTabs(
+                requireContext()
+            )
+        }
     }
 
     private fun setupVersion() {

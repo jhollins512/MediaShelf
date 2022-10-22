@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.mediashelf.android.R
+import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.domain.model.WatchProviderWithViewingOptions
 import com.mediashelf.android.core.extensions.dpToPx
 import com.mediashelf.android.core.presentation.MarginItemDecoration
@@ -21,9 +22,12 @@ class WatchProvidersView @JvmOverloads constructor(
     private val binding =
         ViewWatchProvidersBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private var onAttributionClicked: OnAttributionClicked? = null
+
     init {
         initView(attrs)
         setupWatchProviderList()
+        setupJustWatchLink()
     }
 
     private fun initView(attrs: AttributeSet?) {
@@ -49,9 +53,21 @@ class WatchProvidersView @JvmOverloads constructor(
         }
     }
 
+    private fun setupJustWatchLink() {
+        binding.attributionText.setOnClickListener { onAttributionClicked?.onAttributionClicked() }
+    }
+
     fun setWatchProvidersList(media: List<WatchProviderWithViewingOptions>) {
         val adapter = binding.watchProvidersList.adapter as WatchProviderWithViewingOptionsAdapter
         adapter.submitList(media)
+    }
+
+    fun setOnAttributionClickListener(listener: OnAttributionClicked) {
+        onAttributionClicked = listener
+    }
+
+    fun interface OnAttributionClicked {
+        fun onAttributionClicked()
     }
 }
 
@@ -63,4 +79,12 @@ fun setWatchProviders(
     watchProviders?.let {
         view.setWatchProvidersList(watchProviders)
     }
+}
+
+@BindingAdapter("app:onAttributionClicked")
+fun setOnAttributionClicked(
+    view: WatchProvidersView,
+    listener: WatchProvidersView.OnAttributionClicked
+) {
+    view.setOnAttributionClickListener(listener)
 }

@@ -20,6 +20,7 @@ import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.domain.model.TVShowDetails
 import com.mediashelf.android.core.extensions.navigate
 import com.mediashelf.android.core.extensions.navigateToExternalUrl
+import com.mediashelf.android.core.extensions.navigateToExternalUrlWithCustomTabs
 import com.mediashelf.android.core.navigation.NavigationRouter
 import com.mediashelf.android.core.utils.getScreenWidth
 import com.mediashelf.android.core.utils.isDarkModeEnabled
@@ -136,6 +137,9 @@ class TvShowDetailsFragment : Fragment() {
                     is TvShowDetailsEffect.NavigateToTvShowDetailsAbout -> navigateToMovieDetailsAbout(
                         it.tvShowDetails
                     )
+                    is TvShowDetailsEffect.NavigateWatchProviderAttribution -> navigateToWatchProviderAttribution(
+                        it.tvShowDetails
+                    )
                 }
             }
         }
@@ -151,5 +155,13 @@ class TvShowDetailsFragment : Fragment() {
                 tvShowDetails
             )
         )
+    }
+
+    private fun navigateToWatchProviderAttribution(tvShowDetails: TVShowDetails) {
+        getString(
+            R.string.tmdb_tv_show_base_url,
+            tvShowDetails.id,
+            tvShowDetails.name.replace(" ", "-")
+        ).navigateToExternalUrlWithCustomTabs(requireContext())
     }
 }

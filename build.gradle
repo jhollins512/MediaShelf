@@ -28,6 +28,7 @@ ext {
     palette_version = "1.0.0"
     flexbox_version = "3.0.0"
     paging_version = "3.1.1"
+    browser_version = "1.4.0"
 }
 
 task clean(type: Delete) {

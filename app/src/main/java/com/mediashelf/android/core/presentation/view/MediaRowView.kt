@@ -10,7 +10,7 @@ import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.extensions.dpToPx
 import com.mediashelf.android.core.presentation.MarginItemDecoration
 import com.mediashelf.android.core.presentation.adapter.media.MediaListAdapter
-import com.mediashelf.android.databinding.ViewHomeMediaRowBinding
+import com.mediashelf.android.databinding.ViewMediaRowBinding
 
 class MediaRowView @JvmOverloads constructor(
     context: Context,
@@ -18,7 +18,7 @@ class MediaRowView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = ViewHomeMediaRowBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = ViewMediaRowBinding.inflate(LayoutInflater.from(context), this, true)
     private var onMediaItemClickedListener: OnMediaItemClickedListener? = null
 
     init {
