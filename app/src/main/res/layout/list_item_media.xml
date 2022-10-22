@@ -7,15 +7,15 @@
 
         <import type="android.view.View" />
 
-        <import type="com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper" />
+        <import type="com.mediashelf.android.core.utils.TMDBImageHelper" />
 
         <variable
             name="media"
-            type="com.jamaalhollins.movieshelf.core.domain.model.Media" />
+            type="com.mediashelf.android.core.domain.model.Media" />
 
         <variable
             name="listener"
-            type="com.jamaalhollins.movieshelf.core.presentation.adapter.media.OnMediaItemClickedListener" />
+            type="com.mediashelf.android.core.presentation.adapter.media.OnMediaItemClickedListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -9,7 +9,7 @@
 
         <variable
             name="homeViewModel"
-            type="com.jamaalhollins.movieshelf.feature.home.presentation.HomeViewModel" />
+            type="com.mediashelf.android.feature.home.presentation.HomeViewModel" />
 
     </data>
 
@@ -52,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:visibility="@{homeViewModel.uiState.loading ? View.GONE : View.VISIBLE}">
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                <com.mediashelf.android.core.presentation.view.MediaRowView
                     android:id="@+id/trendingMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     app:mediaRow_title="@string/label_trending_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                <com.mediashelf.android.core.presentation.view.MediaRowView
                     android:id="@+id/popularMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                     app:mediaRow_title="@string/label_popular_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                <com.mediashelf.android.core.presentation.view.MediaRowView
                     android:id="@+id/nowPlayingMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     app:mediaRow_title="@string/label_now_playing_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                <com.mediashelf.android.core.presentation.view.MediaRowView
                     android:id="@+id/upcomingMoviesRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                     app:mediaRow_title="@string/label_upcoming_movies"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                <com.mediashelf.android.core.presentation.view.MediaRowView
                     android:id="@+id/trendingTVRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                     app:mediaRow_title="@string/label_trending_tv"
                     app:setOnMediaItemClicked="@{(media) -> homeViewModel.navigateToMediaDetails(media)}" />
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                <com.mediashelf.android.core.presentation.view.MediaRowView
                     android:id="@+id/popularTVRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

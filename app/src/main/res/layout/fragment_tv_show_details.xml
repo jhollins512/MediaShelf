@@ -5,11 +5,11 @@
 
         <import type="android.view.View" />
 
-        <import type="com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper" />
+        <import type="com.mediashelf.android.core.utils.TMDBImageHelper" />
 
         <variable
             name="tvShowDetailsViewModel"
-            type="com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TvShowDetailsViewModel" />
+            type="com.mediashelf.android.feature.tvShowDetails.presentation.TvShowDetailsViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -123,7 +123,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvShowOverview" />
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.WatchProvidersView
+                <com.mediashelf.android.core.presentation.view.WatchProvidersView
                     android:id="@+id/whereToWatchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                     app:watchProvidersList="@{tvShowDetailsViewModel.tvShowWatchProviders}"
                     app:watchProviders_title="@string/label_where_to_watch" />
 
-                <com.jamaalhollins.movieshelf.core.presentation.view.MediaRowView
+                <com.mediashelf.android.core.presentation.view.MediaRowView
                     android:id="@+id/similarTvShowsList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

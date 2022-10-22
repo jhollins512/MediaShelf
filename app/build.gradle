@@ -13,7 +13,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.jamaalhollins.movieshelf"
+        applicationId "com.mediashelf.android"
         minSdk 26
         targetSdk 33
         versionCode 1
@@ -42,7 +42,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    namespace 'com.jamaalhollins.movieshelf'
+    namespace 'com.mediashelf.android'
 }
 
 dependencies {

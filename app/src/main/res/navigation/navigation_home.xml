@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.home.presentation.HomeFragment"
+        android:name="com.mediashelf.android.feature.home.presentation.HomeFragment"
         android:label="Home Fragment"
         tools:layout="@layout/fragment_home">
 
@@ -19,11 +19,11 @@
 
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsFragment"
+        android:name="com.mediashelf.android.feature.movieDetails.presentation.MovieDetailsFragment"
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details">
 
-        <deepLink app:uri="movieshelf://movie/{movieId}" />
+        <deepLink app:uri="mediashelf://movie/{movieId}" />
 
         <argument
             android:name="movieId"
@@ -37,23 +37,23 @@
 
     <fragment
         android:id="@+id/movieDetailsAboutFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.movieDetails.presentation.MovieDetailsAboutFragment"
+        android:name="com.mediashelf.android.feature.movieDetails.presentation.MovieDetailsAboutFragment"
         android:label="MovieAboutFragment"
         tools:layout="@layout/fragment_movie_details_about">
 
         <argument
             android:name="movieDetails"
-            app:argType="com.jamaalhollins.movieshelf.core.domain.model.MovieDetails" />
+            app:argType="com.mediashelf.android.core.domain.model.MovieDetails" />
 
     </fragment>
 
     <fragment
         android:id="@+id/tvShowDetailsFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TvShowDetailsFragment"
+        android:name="com.mediashelf.android.feature.tvShowDetails.presentation.TvShowDetailsFragment"
         android:label="fragment_tv_show_details"
         tools:layout="@layout/fragment_tv_show_details">
 
-        <deepLink app:uri="movieshelf://tv/{tvShowId}" />
+        <deepLink app:uri="mediashelf://tv/{tvShowId}" />
 
         <argument
             android:name="tvShowId"
@@ -67,29 +67,29 @@
 
     <fragment
         android:id="@+id/TVShowDetailsAboutFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.tvShowDetails.presentation.TVShowDetailsAboutFragment"
+        android:name="com.mediashelf.android.feature.tvShowDetails.presentation.TVShowDetailsAboutFragment"
         android:label="TVShowDetailsAboutFragment"
         tools:layout="@layout/fragment_tv_show_details_about">
 
         <argument
             android:name="tvShowDetails"
-            app:argType="com.jamaalhollins.movieshelf.core.domain.model.TVShowDetails" />
+            app:argType="com.mediashelf.android.core.domain.model.TVShowDetails" />
 
     </fragment>
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.home.presentation.AboutFragment"
+        android:name="com.mediashelf.android.feature.home.presentation.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.jamaalhollins.movieshelf.feature.search.SearchFragment"
+        android:name="com.mediashelf.android.feature.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
 
-        <deepLink app:uri="movieshelf://search" />
+        <deepLink app:uri="mediashelf://search" />
 
     </fragment>
 

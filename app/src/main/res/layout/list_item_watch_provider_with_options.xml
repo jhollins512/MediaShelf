@@ -3,15 +3,15 @@
 
     <data>
 
-        <import type="com.jamaalhollins.movieshelf.core.utils.StringUtilsKt" />
+        <import type="com.mediashelf.android.core.utils.StringUtilsKt" />
 
-        <import type="com.jamaalhollins.movieshelf.core.utils.TMDBImageHelper" />
+        <import type="com.mediashelf.android.core.utils.TMDBImageHelper" />
 
-        <import type="com.jamaalhollins.movieshelf.core.presentation.model.WatchProviderViewingOption" />
+        <import type="com.mediashelf.android.core.presentation.model.WatchProviderViewingOption" />
 
         <variable
             name="watchProvider"
-            type="com.jamaalhollins.movieshelf.core.domain.model.WatchProviderWithViewingOptions" />
+            type="com.mediashelf.android.core.domain.model.WatchProviderWithViewingOptions" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
