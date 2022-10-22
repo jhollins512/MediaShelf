@@ -5,5 +5,5 @@ import androidx.navigation.NavController
 import com.mediashelf.android.core.navigation.NavigationRouter
 
 fun NavController.navigate(router: NavigationRouter) {
-    navigate(router.deepLink.toUri())
+    navigate(String.format("mediashelf://%s", router.path).toUri())
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -53,7 +52,7 @@ class HomeFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
 
             if (it.itemId == R.id.menu_action_search) {
-                findNavController().navigate("movieshelf://search".toUri())
+                findNavController().navigate(NavigationRouter.SearchRouter)
             } else if (it.itemId == R.id.menu_action_about) {
                 findNavController().navigate(HomeFragmentDirections.actionAbout())
             }
