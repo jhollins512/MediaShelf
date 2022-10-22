@@ -32,4 +32,8 @@
     <string name="search">Search</string>
     <string name="about">About</string>
     <string name="search_hint">Search movie or tv show</string>
+    <string name="label_privacy_policy">Privacy Policy</string>
+    <string name="label_acknowledgements">Acknowledgements</string>
+    <string name="label_version">Version %s</string>
+    <string name="privacy_policy_link">https://sites.google.com/view/movieshelf/privacy</string>
 </resources>

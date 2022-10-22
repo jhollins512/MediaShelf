@@ -52,9 +52,9 @@ class HomeFragment : Fragment() {
     private fun setupToolbar() {
         binding.toolbar.setOnMenuItemClickListener {
 
-            if (it.itemId == R.id.action_search) {
+            if (it.itemId == R.id.menu_action_search) {
                 findNavController().navigate("movieshelf://search".toUri())
-            } else if (it.itemId == R.id.action_about) {
+            } else if (it.itemId == R.id.menu_action_about) {
                 findNavController().navigate(HomeFragmentDirections.actionAbout())
             }
 
