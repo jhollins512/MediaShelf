@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1052505024196",
+    "project_id": "media-shelf-e82f9",
+    "storage_bucket": "media-shelf-e82f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052505024196:android:0ae727adbd3b1b56714b91",
+        "android_client_info": {
+          "package_name": "com.mediashelf.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052505024196-a9mju8tcr5j0bcfiren7pvkvpvn0c6se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxvCx6A44k6UHXigaQy_fkZbSbtXY1Iz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052505024196-a9mju8tcr5j0bcfiren7pvkvpvn0c6se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
