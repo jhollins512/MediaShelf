@@ -9,11 +9,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.mediashelf.android.R
 import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.extensions.navigate
 import com.mediashelf.android.core.navigation.NavigationRouter
 import com.mediashelf.android.databinding.FragmentHomeBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,6 +27,12 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        homeViewModel.loadMedia()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +51,7 @@ class HomeFragment : Fragment() {
 
         setupToolbar()
         observeUiEffects()
+        observeErrors()
     }
 
     override fun onDestroyView() {
@@ -74,7 +85,30 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun observeErrors() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.uiState.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle,
+                Lifecycle.State.STARTED
+            ).map { it.loadFailed }.distinctUntilChanged().collectLatest {
+                if (it) {
+                    handleException()
+                }
+            }
+        }
+    }
+
     private fun navigateToMediaDetails(media: Media) {
         findNavController().navigate(NavigationRouter.MediaRouter(media))
+    }
+
+    private fun handleException() {
+        Snackbar.make(
+            binding.root,
+            getString(R.string.label_error_occured),
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(R.string.btn_try_again) {
+            homeViewModel.loadMedia()
+        }.show()
     }
 }

@@ -25,7 +25,6 @@ class SearchAllMediaPagingSource(private val tmdbService: TMDBService, private v
             val media = response.results.filterNot { it.mediaType == "person" }
                 .map { it.mapToMedia() }
 
-            Timber.d((nextPageNumber + 1).toString())
             return LoadResult.Page(
                 data = media,
                 prevKey = null,

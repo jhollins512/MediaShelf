@@ -12,6 +12,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import com.google.android.material.snackbar.Snackbar
+import com.mediashelf.android.R
 import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.extensions.dpToPx
 import com.mediashelf.android.core.extensions.navigate
@@ -87,26 +90,47 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupMediaList() {
-        binding.searchMediaList.apply {
-            adapter = SearchMediaPagingAdapter {
-                navigateToMedia(it)
-            }
+        val searchMediaPagingAdapter = SearchMediaPagingAdapter {
+            navigateToMedia(it)
+        }
 
+        binding.searchMediaList.apply {
+            adapter = searchMediaPagingAdapter
             addItemDecoration(MarginItemDecoration(8.dpToPx(), 8.dpToPx(), 8.dpToPx(), 8.dpToPx()))
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch() {
+            searchMediaPagingAdapter.loadStateFlow.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
+            ).collectLatest {
+                if (it.refresh is LoadState.Error) {
+                    handleException()
+                }
+            }
         }
     }
 
     private fun subscribeUi() {
         viewLifecycleOwner.lifecycleScope.launch {
-            searchViewModel.searchResults.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
-            ).collectLatest {
-                (binding.searchMediaList.adapter as SearchMediaPagingAdapter).submitData(it)
+            launch {
+                searchViewModel.searchResults.flowWithLifecycle(
+                    viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
+                ).collectLatest {
+                    (binding.searchMediaList.adapter as SearchMediaPagingAdapter).submitData(it)
+                }
             }
         }
     }
 
     private fun navigateToMedia(media: Media) {
         findNavController().navigate(NavigationRouter.MediaRouter(media))
+    }
+
+    private fun handleException() {
+        Snackbar.make(
+            binding.root,
+            getString(R.string.label_error_occured),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 }
