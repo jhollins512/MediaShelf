@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -12,7 +14,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.mediashelf.android.R
 import com.mediashelf.android.core.extensions.dpToPx
+import com.mediashelf.android.core.extensions.show
 import com.mediashelf.android.core.presentation.MarginItemDecoration
 import com.mediashelf.android.core.presentation.adapter.GenresAdapter
 import com.mediashelf.android.databinding.FragmentTvShowDetailsAboutBinding
@@ -102,9 +106,13 @@ class TVShowDetailsAboutFragment : Fragment() {
                 tvShowDetailsAboutViewModel.uiState.flowWithLifecycle(
                     viewLifecycleOwner.lifecycle,
                     Lifecycle.State.STARTED
-                ).map { it.credits }.distinctUntilChanged().collectLatest {
-                    binding.starringText.text =
-                        it?.cast?.take(10)?.joinToString { it.name }
+                ).map { it.credits }.distinctUntilChanged().collectLatest { credits ->
+                    binding.castCreditsGroup.isVisible = credits != null
+
+                    credits?.let {
+                        binding.starringText.text =
+                            credits.cast.take(10).joinToString { it.name }
+                    }
                 }
             }
 
@@ -113,8 +121,20 @@ class TVShowDetailsAboutFragment : Fragment() {
                     viewLifecycleOwner.lifecycle,
                     Lifecycle.State.STARTED
                 ).map { it.contentRating }.distinctUntilChanged().collectLatest {
-                    binding.contentRatingText.text = it
+                    binding.contentRatingText.text =
+                        it.ifEmpty { getString(R.string.not_available_abbreviation) }
                 }
+            }
+
+            launch {
+                tvShowDetailsAboutViewModel.uiState.flowWithLifecycle(
+                    viewLifecycleOwner.lifecycle,
+                    Lifecycle.State.STARTED
+                ).map { it.isLoadingCredits || it.isLoadingContentRating }.distinctUntilChanged()
+                    .collectLatest {
+                        binding.tvShowDetailsAboutScrollView.isInvisible = it
+                        binding.tvShowDetailsAboutLoadingProgressBar.show(it)
+                    }
             }
         }
     }

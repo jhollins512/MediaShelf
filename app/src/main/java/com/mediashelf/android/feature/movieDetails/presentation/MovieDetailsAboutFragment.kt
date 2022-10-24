@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -14,6 +16,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.mediashelf.android.R
 import com.mediashelf.android.core.extensions.dpToPx
+import com.mediashelf.android.core.extensions.show
 import com.mediashelf.android.core.presentation.MarginItemDecoration
 import com.mediashelf.android.core.presentation.adapter.GenresAdapter
 import com.mediashelf.android.databinding.FragmentMovieDetailsAboutBinding
@@ -22,6 +25,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.util.*
 
 class MovieDetailsAboutFragment : Fragment() {
@@ -104,10 +108,14 @@ class MovieDetailsAboutFragment : Fragment() {
                 movieDetailsAboutViewModel.uiState.flowWithLifecycle(
                     viewLifecycleOwner.lifecycle,
                     Lifecycle.State.STARTED
-                ).map { it.credits }.distinctUntilChanged().collectLatest {
-                    binding.starringText.text =
-                        it?.cast?.take(10)?.joinToString { it.name }
-                    binding.directorsText.text = it?.getDirectorName()
+                ).map { it.credits }.distinctUntilChanged().collectLatest { credits ->
+                    binding.castCreditsGroup.isVisible = credits != null
+
+                    credits?.let {
+                        binding.starringText.text =
+                            credits.cast.take(10).joinToString { it.name }
+                        binding.directorsText.text = credits.getDirectorName()
+                    }
                 }
             }
 
@@ -116,8 +124,21 @@ class MovieDetailsAboutFragment : Fragment() {
                     viewLifecycleOwner.lifecycle,
                     Lifecycle.State.STARTED
                 ).map { it.contentRating }.distinctUntilChanged().collectLatest {
-                    binding.contentRatingText.text = it
+                    binding.contentRatingText.text =
+                        it.ifEmpty { getString(R.string.not_available_abbreviation) }
                 }
+            }
+
+            launch {
+                movieDetailsAboutViewModel.uiState.flowWithLifecycle(
+                    viewLifecycleOwner.lifecycle,
+                    Lifecycle.State.STARTED
+                ).map { it.isLoadingCredits || it.isLoadingContentRating }.distinctUntilChanged()
+                    .collectLatest {
+                        Timber.d(it.toString())
+                        binding.movieDetailsAboutScrollView.isInvisible = it
+                        binding.movieDetailsAboutLoadingProgressBar.show(it)
+                    }
             }
         }
     }

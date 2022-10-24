@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:navigationIcon="@drawable/ic_baseline_arrow_white_24"
             app:titleTextColor="?attr/colorOnPrimary" />
 
@@ -52,7 +52,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/overviewTextDivider"
+                android:id="@+id/genresDivider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -67,7 +67,7 @@
                 android:text="@string/label_genres"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/overviewTextDivider" />
+                app:layout_constraintTop_toBottomOf="@id/genresDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/genresList"
@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@id/genresText" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/genresDivider"
+                android:id="@+id/detailsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -93,7 +93,7 @@
                 android:text="@string/label_details"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/genresDivider" />
+                app:layout_constraintTop_toBottomOf="@id/detailsDivider" />
 
             <TextView
                 android:id="@+id/contentRatingTitle"
@@ -183,8 +183,15 @@
                 app:layout_constraintTop_toBottomOf="@id/originalLanguageTitle"
                 tools:text="English" />
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/castCreditsGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="castCreditsDivider, castCreditsText,starringTitle,
+                starringText" />
+
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/detailsDivider"
+                android:id="@+id/castCreditsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -199,7 +206,7 @@
                 android:text="@string/label_cast_and_credits"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/detailsDivider" />
+                app:layout_constraintTop_toBottomOf="@id/castCreditsDivider" />
 
             <TextView
                 android:id="@+id/starringTitle"
@@ -222,5 +229,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/tvShowDetailsAboutLoadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

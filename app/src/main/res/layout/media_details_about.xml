@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/overviewTextDivider"
+                android:id="@+id/genresDivider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -66,7 +66,7 @@
                 android:text="@string/label_genres"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/overviewTextDivider" />
+                app:layout_constraintTop_toBottomOf="@id/genresDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/genresList"
@@ -77,7 +77,7 @@
                 app:layout_constraintTop_toBottomOf="@id/genresText" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/genresDivider"
+                android:id="@+id/detailsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -92,7 +92,7 @@
                 android:text="@string/label_details"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/genresDivider" />
+                app:layout_constraintTop_toBottomOf="@id/detailsDivider" />
 
             <TextView
                 android:id="@+id/contentRatingTitle"
@@ -183,7 +183,7 @@
                 tools:text="English" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/detailsDivider"
+                android:id="@+id/castCreditsDivider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="@dimen/spacing_normal"
@@ -198,7 +198,7 @@
                 android:text="@string/label_cast_and_credits"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintTop_toBottomOf="@id/detailsDivider" />
+                app:layout_constraintTop_toBottomOf="@id/castCreditsDivider" />
 
             <TextView
                 android:id="@+id/starringTitle"

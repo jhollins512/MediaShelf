@@ -3,6 +3,7 @@ package com.mediashelf.android.feature.tvShowDetails.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mediashelf.android.core.domain.model.Credits
+import com.mediashelf.android.core.extensions.createExceptionHandler
 import com.mediashelf.android.feature.tvShowDetails.domain.GetTVShowContentRatingUseCase
 import com.mediashelf.android.feature.tvShowDetails.domain.GetTVShowCreditsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,14 +21,23 @@ class TVShowDetailsAboutViewModel(
     val uiState: StateFlow<TVShowDetailsAboutUiState> = _uiState
 
     fun loadCredits(tvId: Int) {
-        viewModelScope.launch {
+        val exceptionHandler = viewModelScope.createExceptionHandler("Loading credits failed") {
+            _uiState.update { it.copy(isLoadingCredits = false) }
+        }
+
+        viewModelScope.launch(exceptionHandler) {
             val credits = getTVShowCredits(tvId)
             _uiState.update { it.copy(isLoadingCredits = false, credits = credits) }
         }
     }
 
     fun loadContentRating(tvId: Int) {
-        viewModelScope.launch {
+        val exceptionHandler =
+            viewModelScope.createExceptionHandler("Loading content rating failed") {
+                _uiState.update { it.copy(isLoadingContentRating = false) }
+            }
+
+        viewModelScope.launch(exceptionHandler) {
             val contentRating = getTVShowContentRating(tvId, Locale.getDefault())
             _uiState.update {
                 it.copy(
