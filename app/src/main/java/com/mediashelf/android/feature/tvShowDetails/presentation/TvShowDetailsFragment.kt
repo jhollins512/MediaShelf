@@ -1,20 +1,16 @@
 package com.mediashelf.android.feature.tvShowDetails.presentation
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.elevation.ElevationOverlayProvider
+import com.google.android.material.snackbar.Snackbar
 import com.mediashelf.android.R
 import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.domain.model.TVShowDetails
@@ -22,9 +18,13 @@ import com.mediashelf.android.core.extensions.navigate
 import com.mediashelf.android.core.extensions.navigateToExternalUrl
 import com.mediashelf.android.core.extensions.navigateToExternalUrlWithCustomTabs
 import com.mediashelf.android.core.navigation.NavigationRouter
-import com.mediashelf.android.core.utils.getScreenWidth
-import com.mediashelf.android.core.utils.isDarkModeEnabled
+import com.mediashelf.android.core.presentation.helper.setToolbarTransparent
+import com.mediashelf.android.core.presentation.helper.setupPosterPosition
+import com.mediashelf.android.core.presentation.helper.setupScrollView
 import com.mediashelf.android.databinding.FragmentTvShowDetailsBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -60,9 +60,15 @@ class TvShowDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbar()
-        setupPosterPosition()
-        setupScrollView()
+        setupPosterPosition(requireActivity(), binding.posterImage)
+        setupScrollView(
+            requireActivity(),
+            binding.tvShowDetailsContentScrollView,
+            binding.tvShowDetailsToolbar,
+            binding.posterImage
+        )
         subscribeUi()
+        subscribeEffects()
     }
 
     override fun onDestroyView() {
@@ -76,53 +82,21 @@ class TvShowDetailsFragment : Fragment() {
         }
     }
 
-    private fun setupPosterPosition() {
-        val marginY = (.10 * getScreenWidth(requireActivity())).toInt()
-        binding.posterImage.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            this.topMargin = -marginY
-        }
-    }
-
-    private fun setupScrollView() {
-        binding.tvShowDetailsContentScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            val offset = binding.posterImage.y - getActionBarSize()
-
-            if (scrollY >= offset) {
-                if (isDarkModeEnabled(requireContext())) {
-                    binding.tvShowDetailsToolbar.setBackgroundColor(
-                        ElevationOverlayProvider(requireContext()).compositeOverlayWithThemeSurfaceColorIfNeeded(
-                            12f
-                        )
-                    )
-                } else {
-                    binding.tvShowDetailsToolbar.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.primaryColor
-                        )
-                    )
-                }
-            } else {
-                binding.tvShowDetailsToolbar.setBackgroundColor(
-                    Color.TRANSPARENT
-                )
-            }
-        }
-    }
-
-    private fun getActionBarSize(): Int {
-        val typedValue = TypedValue()
-
-        return if (requireActivity().theme.resolveAttribute(
-                androidx.appcompat.R.attr.actionBarSize, typedValue, true
-            )
-        ) {
-            TypedValue.complexToDimensionPixelSize(typedValue.data, resources.displayMetrics)
-        } else {
-            0
-        }
-    }
-
     private fun subscribeUi() {
+        lifecycleScope.launch {
+            tvShowDetailsViewModel.uiState.map { it.tvShowDetailsLoadFailure }
+                .distinctUntilChanged()
+                .collectLatest {
+                    if (it) {
+                        handleTVShowDetailsError()
+                    } else {
+                        setToolbarTransparent(requireContext(), binding.tvShowDetailsToolbar, true)
+                    }
+                }
+        }
+    }
+
+    private fun subscribeEffects() {
         lifecycleScope.launch {
             tvShowDetailsViewModel.uiEffect.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
@@ -163,5 +137,17 @@ class TvShowDetailsFragment : Fragment() {
             tvShowDetails.id,
             tvShowDetails.name.replace(" ", "-")
         ).navigateToExternalUrlWithCustomTabs(requireContext())
+    }
+
+    private fun handleTVShowDetailsError() {
+        Snackbar.make(
+            binding.root,
+            getString(R.string.label_error_occured),
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(R.string.btn_try_again) {
+            tvShowDetailsViewModel.loadTVShowDetailsScreen(args.tvShowId)
+        }.show()
+
+        setToolbarTransparent(requireContext(), binding.tvShowDetailsToolbar, false)
     }
 }

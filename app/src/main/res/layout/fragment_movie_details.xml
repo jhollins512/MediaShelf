@@ -163,7 +163,7 @@
             app:navigationIconTint="@android:color/white" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/homeLoadingProgressBar"
+            android:id="@+id/movieDetailsLoadingProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -47,6 +47,7 @@ class MovieDetailsViewModel(
 
         viewModelScope.launch(exceptionHandler) {
             val movieDetails = getMovieDetails.invoke(movieId)
+
             _uiState.update {
                 it.copy(
                     movieDetailsLoading = false,
@@ -63,6 +64,7 @@ class MovieDetailsViewModel(
 
         viewModelScope.launch(exceptionHandler) {
             val similarMovies = getMovieRecommendations.invoke(movieId)
+
             _uiState.update { it.copy(similarMovies = similarMovies) }
         }
     }
@@ -74,6 +76,7 @@ class MovieDetailsViewModel(
         viewModelScope.launch(exceptionHandler) {
             val watchProviderCountry = getMovieWatchProvidersForLocale.invoke(movieId, locale)
             val movieWatchProviders = formatWatchProvidersWithType.invoke(watchProviderCountry)
+
             _uiState.update {
                 it.copy(movieWatchProviders = movieWatchProviders)
             }

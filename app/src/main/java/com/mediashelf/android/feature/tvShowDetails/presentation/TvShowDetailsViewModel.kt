@@ -1,18 +1,16 @@
 package com.mediashelf.android.feature.tvShowDetails.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mediashelf.android.core.domain.FormatToWatchProviderWithViewingOptionsUseCase
 import com.mediashelf.android.core.domain.model.Media
 import com.mediashelf.android.core.domain.model.TVShowDetails
 import com.mediashelf.android.core.domain.model.WatchProviderWithViewingOptions
+import com.mediashelf.android.core.extensions.createExceptionHandler
 import com.mediashelf.android.feature.tvShowDetails.domain.GetTVShowDetailsUseCase
 import com.mediashelf.android.feature.tvShowDetails.domain.GetTVShowRecommendationsUseCase
 import com.mediashelf.android.feature.tvShowDetails.domain.GetTVShowWatchProvidersForLocaleUseCase
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -23,43 +21,69 @@ class TvShowDetailsViewModel(
     private val formatWatchProvidersWithType: FormatToWatchProviderWithViewingOptionsUseCase
 ) : ViewModel() {
 
-    private val _tvShowDetails = MutableLiveData<TVShowDetails>()
-    val tvShowDetails: LiveData<TVShowDetails> = _tvShowDetails
-
-    private val _similarTvShows = MutableLiveData<List<Media>>()
-    val similarTvShows: LiveData<List<Media>> = _similarTvShows
-
-    private val _tvShowWatchProviders =
-        MutableLiveData<List<WatchProviderWithViewingOptions>>()
-    val tvShowWatchProviders: LiveData<List<WatchProviderWithViewingOptions>> =
-        _tvShowWatchProviders
+    private val _uiState = MutableStateFlow(TvShowDetailsUiState())
+    val uiState: StateFlow<TvShowDetailsUiState> = _uiState
 
     private val _uiEffect = MutableSharedFlow<TvShowDetailsEffect>()
     val uiEffect: SharedFlow<TvShowDetailsEffect> = _uiEffect
 
-    fun loadTvShowDetails(movieId: Int) {
-        viewModelScope.launch {
-            _tvShowDetails.value = getTvShowDetails.invoke(movieId)
+    fun loadTVShowDetailsScreen(tvId: Int) {
+        _uiState.update { it.copy(tvShowDetailsLoading = true, tvShowDetailsLoadFailure = false) }
+
+        loadTvShowDetails(tvId)
+        loadTvShowWatchProviders(tvId, Locale.getDefault())
+        loadSimilarTvShows(tvId)
+    }
+
+    fun loadTvShowDetails(tvId: Int) {
+        val exceptionHandler = viewModelScope.createExceptionHandler("Failed to movie details.") {
+            _uiState.update {
+                it.copy(
+                    tvShowDetailsLoading = false,
+                    tvShowDetailsLoadFailure = true
+                )
+            }
+        }
+
+        viewModelScope.launch(exceptionHandler) {
+            val tvShowDetails = getTvShowDetails.invoke(tvId)
+
+            _uiState.update {
+                it.copy(
+                    tvShowDetailsLoading = false,
+                    tvShowDetailsLoadFailure = false,
+                    tvShowDetails = tvShowDetails
+                )
+            }
         }
     }
 
     fun loadSimilarTvShows(tvId: Int) {
-        viewModelScope.launch {
-            _similarTvShows.value = getTvShowRecommendations.invoke(tvId)
+        val exceptionHandler =
+            viewModelScope.createExceptionHandler("Failed to load similar tv shows.")
+
+        viewModelScope.launch(exceptionHandler) {
+            val similarTVShows = getTvShowRecommendations.invoke(tvId)
+
+            _uiState.update { it.copy(similarTVShows = similarTVShows) }
         }
     }
 
     fun loadTvShowWatchProviders(tvId: Int, locale: Locale) {
-        viewModelScope.launch {
+        val exceptionHandler =
+            viewModelScope.createExceptionHandler("Failed to load tv show watch providers.")
+
+        viewModelScope.launch(exceptionHandler) {
             val watchProviderCountry = getTvShowWatchProvidersForLocale.invoke(tvId, locale)
-            _tvShowWatchProviders.value =
-                formatWatchProvidersWithType.invoke(watchProviderCountry)
+            val tvShowWatchProviders = formatWatchProvidersWithType.invoke(watchProviderCountry)
+
+            _uiState.update { it.copy(tvShowWatchProviders = tvShowWatchProviders) }
         }
     }
 
     fun showHomepage() {
         viewModelScope.launch {
-            tvShowDetails.value?.homepage?.let {
+            _uiState.value.tvShowDetails?.homepage?.let {
                 _uiEffect.emit(TvShowDetailsEffect.NavigateToWatchNowLink(it))
             }
         }
@@ -73,7 +97,7 @@ class TvShowDetailsViewModel(
 
     fun navigateToTVShowDetailsAbout() {
         viewModelScope.launch {
-            tvShowDetails.value?.let {
+            _uiState.value.tvShowDetails?.let {
                 _uiEffect.emit(TvShowDetailsEffect.NavigateToTvShowDetailsAbout(it))
             }
         }
@@ -81,12 +105,20 @@ class TvShowDetailsViewModel(
 
     fun navigateToWatchProviderAttribution() {
         viewModelScope.launch {
-            tvShowDetails.value?.let {
+            _uiState.value.tvShowDetails?.let {
                 _uiEffect.emit(TvShowDetailsEffect.NavigateWatchProviderAttribution(it))
             }
         }
     }
 }
+
+data class TvShowDetailsUiState(
+    val tvShowDetailsLoading: Boolean = true,
+    val tvShowDetails: TVShowDetails? = null,
+    val similarTVShows: List<Media> = emptyList(),
+    val tvShowWatchProviders: List<WatchProviderWithViewingOptions> = emptyList(),
+    val tvShowDetailsLoadFailure: Boolean = false
+)
 
 sealed class TvShowDetailsEffect {
     class NavigateToTvShowDetailsAbout(val tvShowDetails: TVShowDetails) : TvShowDetailsEffect()
