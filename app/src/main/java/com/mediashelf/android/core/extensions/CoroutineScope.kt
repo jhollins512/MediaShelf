@@ -5,12 +5,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-inline fun CoroutineScope.createExceptionHandler(
+fun CoroutineScope.createExceptionHandler(
     message: String,
-    crossinline action: (throwable: Throwable) -> Unit
+    action: ((throwable: Throwable) -> Unit)? = null
 ) = CoroutineExceptionHandler { _, throwable ->
     Timber.e(throwable, message)
     launch {
-        action(throwable)
+        action?.invoke(throwable)
     }
 }

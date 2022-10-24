@@ -12,7 +12,7 @@
             type="com.mediashelf.android.feature.movieDetails.presentation.MovieDetailsViewModel" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,27 +21,29 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/movieDetailsContentScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/spacing_normal">
+                android:paddingBottom="@dimen/spacing_normal"
+                android:visibility="@{movieDetailsViewModel.uiState.movieDetailsLoading || movieDetailsViewModel.uiState.movieDetailsLoadFailure ? View.INVISIBLE : View.VISIBLE}">
 
                 <ImageView
                     android:id="@+id/backdropImage"
                     error="@{@drawable/ic_baseline_media_48}"
-                    imageUrl="@{TMDBImageHelper.W780.getTMDBImageUrl(movieDetailsViewModel.movieDetails.backdropPath)}"
+                    imageUrl="@{TMDBImageHelper.W780.getTMDBImageUrl(movieDetailsViewModel.uiState.movieDetails.backdropPath)}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:foreground="@color/overlay_black"
+                    android:foreground="@drawable/backdrop_overlay"
                     app:layout_constraintDimensionRatio="16:9"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/posterImage"
                     error="@{@drawable/ic_baseline_media_48}"
-                    imageUrl="@{TMDBImageHelper.W500.getTMDBImageUrl(movieDetailsViewModel.movieDetails.posterPath)}"
+                    imageUrl="@{TMDBImageHelper.W500.getTMDBImageUrl(movieDetailsViewModel.uiState.movieDetails.posterPath)}"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="@dimen/spacing_large"
@@ -59,7 +61,7 @@
                     android:layout_marginStart="@dimen/spacing_normal"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginEnd="@dimen/spacing_normal"
-                    android:text="@{movieDetailsViewModel.movieDetails.title}"
+                    android:text="@{movieDetailsViewModel.uiState.movieDetails.title}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/posterImage"
@@ -71,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_smallish"
-                    android:text="@{movieDetailsViewModel.movieDetails.releaseDate}"
+                    android:text="@{movieDetailsViewModel.uiState.movieDetails.releaseDate}"
                     app:layout_constraintStart_toStartOf="@id/movieTitle"
                     app:layout_constraintTop_toBottomOf="@+id/movieTitle"
                     tools:text="2021-12-17" />
@@ -85,7 +87,7 @@
                     android:layout_marginEnd="@dimen/spacing_normal"
                     android:onClick="@{() -> movieDetailsViewModel.showHomepage()}"
                     android:text="@string/btn_homepage"
-                    android:visibility="@{movieDetailsViewModel.movieDetails.homepage.empty ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{movieDetailsViewModel.uiState.movieDetails.homepage.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/posterImage" />
 
                 <TextView
@@ -108,7 +110,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:paddingTop="@dimen/spacing_xsmall"
-                    android:text="@{movieDetailsViewModel.movieDetails.overview}"
+                    android:text="@{movieDetailsViewModel.uiState.movieDetails.overview}"
                     app:layout_constraintTop_toBottomOf="@id/aboutMovieText"
                     tools:text="Movie Overview" />
 
@@ -132,10 +134,10 @@
                     android:nestedScrollingEnabled="false"
                     android:paddingStart="@dimen/spacing_normal"
                     android:paddingEnd="@dimen/spacing_normal"
-                    android:visibility="@{movieDetailsViewModel.movieWatchProviders.empty ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{movieDetailsViewModel.uiState.movieWatchProviders.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/aboutMovieMoreText"
                     app:onAttributionClicked="@{() -> movieDetailsViewModel.navigateToWatchProviderAttribution()}"
-                    app:watchProvidersList="@{movieDetailsViewModel.movieWatchProviders}"
+                    app:watchProvidersList="@{movieDetailsViewModel.uiState.movieWatchProviders}"
                     app:watchProviders_title="@string/label_where_to_watch" />
 
                 <com.mediashelf.android.core.presentation.view.MediaRowView
@@ -143,9 +145,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    android:visibility="@{movieDetailsViewModel.similarMovies.empty ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{movieDetailsViewModel.uiState.similarMovies.empty ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/whereToWatchView"
-                    app:mediaList="@{movieDetailsViewModel.similarMovies}"
+                    app:mediaList="@{movieDetailsViewModel.uiState.similarMovies}"
                     app:mediaRow_title="@string/label_similar_movies"
                     app:setOnMediaItemClicked="@{(media) -> movieDetailsViewModel.navigateToMediaDetails(media)}" />
 
@@ -160,5 +162,13 @@
             app:navigationIcon="@drawable/ic_baseline_arrow_white_24"
             app:navigationIconTint="@android:color/white" />
 
-    </FrameLayout>
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/homeLoadingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:show="@{movieDetailsViewModel.uiState.movieDetailsLoading}" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -34,7 +34,7 @@
                     imageUrl="@{TMDBImageHelper.W780.getTMDBImageUrl(tvShowDetailsViewModel.tvShowDetails.backdropPath)}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:foreground="@color/overlay_black"
+                    android:foreground="@drawable/backdrop_overlay"
                     app:layout_constraintDimensionRatio="16:9"
                     app:layout_constraintTop_toTopOf="parent" />
 
