@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3")
         classpath 'com.google.gms:google-services:4.3.14'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
     }
@@ -19,15 +19,15 @@ plugins {
 }
 
 ext {
-    koin_version = "3.2.1"
+    koin_version = '3.3.0'
     retrofit_version = "2.9.0"
     moshi_version = "1.14.0"
-    moshi_adapter_version = "1.8.0"
+    moshi_adapter_version = '1.14.0'
     moshi_converter_version = "2.9.0"
     timber_version = "5.0.1"
     okHttp_version = "5.0.0-alpha.2"
-    nav_version = "2.5.2"
-    glide_version = "4.12.0"
+    nav_version = "2.5.3"
+    glide_version = '4.14.2'
     palette_version = "1.0.0"
     flexbox_version = "3.0.0"
     paging_version = "3.1.1"
