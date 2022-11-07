@@ -22,7 +22,7 @@ android {
         applicationId "com.mediashelf.android"
         minSdk 26
         targetSdk 33
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         buildConfigField "String", "API_KEY", localProperties['apiKey']
